@@ -49,11 +49,23 @@
         [class*="col-"] {
             height: 50px;
             padding: 0 10px;
-            background-color: #eee;
-            background-clip: content-box;
             margin-bottom: 20px;
             float: left;
+            position: relative;
         }
+
+         [class*="col-"]::after {
+             content: "";
+             display: block;
+             top: 0;
+             bottom: 0;
+             left: 0;
+             right: 0;
+             margin: 0 10px;
+             background-color: #eee;
+             border: 1px solid #999;
+             position: absolute;
+         }
 
         @media(min-width: 768px){
             .col-sm-1 {
