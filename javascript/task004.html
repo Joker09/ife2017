@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #result {
+            padding: 0;
+           overflow: hidden;
+        }
+
+        #result li {
+            line-height: 30px;
+            height: 30px;
+            color: #fff;
+            padding: 10px;
+            font-size: 16px;
+            float: left;
+            list-style: none;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="num">
+    <button id="insertFromLeft">左侧入</button>  
+    <button id="insertFromRight">右侧入</button>  
+    <button id="deleteFromLeft">左侧出</button>  
+    <button id="deleteFromRight">右侧出</button>
+    <ul id="result">
+        <li>23</li>
+    </ul>
+    <script>
+        (function(){
+
+            var result = document.getElementById('result'); // 获取显示结果的节点
+
+            // 获取输入的值
+            function getValue(){
+                return document.getElementById('num').value;
+            }
+
+            // 清空输入框
+            function clearValue(){
+                document.getElementById('num').value = '';
+            }
+
+
+            // 左侧入
+            function insertFromLeft(){
+                var val = getValue();
+                if(!val || isNaN(val)){
+                    return;
+                }
+                var newNode = document.createElement('li');
+                newNode.innerText = val;
+                result.insertBefore(newNode, result.firstElementChild);
+                clearValue();
+            }
+
+            // 右侧入
+            function insertFromRight(){
+                var val = getValue();
+                if(!val || isNaN(val)){
+                    return;
+                }
+                var newNode = document.createElement('li');
+                newNode.innerText = val;
+                result.appendChild(newNode);
+                clearValue();
+            }
+
+            // 左侧出
+            function deleteFromLeft (){
+                var item = result.firstElementChild;
+                alert(item.innerText);
+                result.removeChild(item);
+            }
+
+            function deleteFromRight(){
+                var item = result.lastElementChild;
+                alert(item.innerText);
+                result.removeChild(item);
+            }
+
+            function clickAnyone(){
+                result.addEventListener('click', function(e){
+                    if(e.target.tagName.toLowerCase() === 'li'){
+                        alert(e.target.innerText);
+                        result.removeChild(e.target);
+                    }
+                });
+            }            
+
+            document.getElementById('insertFromLeft').addEventListener('click', insertFromLeft);
+            document.getElementById('insertFromRight').addEventListener('click', insertFromRight);
+            document.getElementById('deleteFromLeft').addEventListener('click', deleteFromLeft);
+            document.getElementById('deleteFromRight').addEventListener('click', deleteFromRight);
+            clickAnyone();
+        })();
+    </script>
+</body>
+</html>
