@@ -81,12 +81,14 @@
                 result.removeChild(item);
             }
 
+            // 右侧出
             function deleteFromRight(){
                 var item = result.lastElementChild;
                 alert(item.innerText);
                 result.removeChild(item);
             }
 
+            // 点击任何一个
             function clickAnyone(){
                 result.addEventListener('click', function(e){
                     if(e.target.tagName.toLowerCase() === 'li'){
