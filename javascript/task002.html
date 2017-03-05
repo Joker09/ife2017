@@ -44,7 +44,7 @@ var aqiData = [
 
   var html = '';
   for (var j = 0; j < showList.length; j++){
-    html += '<li>第'+(j+1)+'名  ' + showList[j].join("--") + '</li>';
+    html += '<li>第'+(j+1).toLocaleString("zh-Hans-CN-u-nu-hanidec")+'名  ' + showList[j].join("--") + '</li>';
   }
   document.getElementById('aqi-list').innerHTML = html;
 })();
