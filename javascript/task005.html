@@ -7,7 +7,8 @@
     <title>Document</title>
     <style>
         #result {
-            padding: 0;
+           padding: 0;
+           font-size: 0;
            overflow: hidden;
         }
 
@@ -115,8 +116,21 @@
 				} 
 			}          
 
-            document.getElementById('insertFromLeft').addEventListener('click', insertFromLeft);
-            document.getElementById('insertFromRight').addEventListener('click', insertFromRight);
+            document.getElementById('insertFromLeft').addEventListener('click', function(){
+            	if(result.childNodes.length > 60){
+            		alert("最多60个");
+            	}
+            	console.log(result.childNodes.length)
+            	result.style.width = result.childNodes.length * 45 + "px";
+            	insertFromLeft();
+            });
+            document.getElementById('insertFromRight').addEventListener('click', function(){
+            	if(result.childNodes.length > 60){
+            		alert("最多60个");
+            	}
+            	result.style.width = result.childNodes.length * 45 + "px";
+            	insertFromRight();
+            });
             document.getElementById('deleteFromLeft').addEventListener('click', deleteFromLeft);
             document.getElementById('deleteFromRight').addEventListener('click', deleteFromRight);
             clickAnyone();
