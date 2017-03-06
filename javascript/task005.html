@@ -17,7 +17,6 @@
             display: inline-block;
 			vertical-align: bottom;
             color: #fff;
-            padding: 10px;
             font-size: 12px;
             display: inline-block;
             list-style: none;
@@ -34,6 +33,7 @@
     <button id="insertFromRight">右侧入</button>  
     <button id="deleteFromLeft">左侧出</button>  
     <button id="deleteFromRight">右侧出</button>
+    <button id="createRandom">创建随机数</button>
     <button id="sort">排序</button>
     <ul id="result">
     </ul>
@@ -107,20 +107,37 @@
             function sort(nodelist){
    				var l = nodelist.length;
 			    var parent = nodelist[0].parentNode;
-			  	for(var i = 0; i < l; i++){
-			        for(var j = i; j < l; j++){
-			        	if((+nodelist[i].innerText) > (+nodelist[j].innerText)){
-			           		parent.insertBefore(nodelist[j],nodelist[i]);
-			        	}
-			    	} 
-				} 
-			}          
+                var i = 0;
+                var timer = setInterval(function(){
+                    if(i > l-2){
+                        clearInterval(timer);
+                    }
+                        for(var j = i; j < l; j++){
+                            if((+nodelist[i].innerText) > (+nodelist[j].innerText)){
+                                parent.insertBefore(nodelist[j],nodelist[i]);
+                            }
+                        }
+                    i++;    
+                },100);
+			  	
+			} 
+
+            function createRandom(){
+                result.innerHTML = '';
+                for(var i = 0; i < 60; i++){
+                    var newNode = document.createElement('li');
+                    var val = Math.floor((Math.random()*90+10));
+                    newNode.innerText = val;
+                    newNode.style.lineHeight = newNode.style.height = val + "px";
+                    result.insertBefore(newNode, result.firstElementChild);
+                    clearValue();
+                }
+            }         
 
             document.getElementById('insertFromLeft').addEventListener('click', function(){
             	if(result.childNodes.length > 60){
             		alert("最多60个");
             	}
-            	console.log(result.childNodes.length)
             	result.style.width = result.childNodes.length * 45 + "px";
             	insertFromLeft();
             });
@@ -134,7 +151,7 @@
             document.getElementById('deleteFromLeft').addEventListener('click', deleteFromLeft);
             document.getElementById('deleteFromRight').addEventListener('click', deleteFromRight);
             clickAnyone();
-
+            document.getElementById('createRandom').addEventListener('click', createRandom);
             document.getElementById('sort').addEventListener('click',function(){
             	var nodelist = result.getElementsByTagName('li');
             	sort(nodelist);
