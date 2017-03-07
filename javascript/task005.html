@@ -135,15 +135,17 @@
             }         
 
             document.getElementById('insertFromLeft').addEventListener('click', function(){
-            	if(result.childNodes.length > 60){
+            	if(result.childNodes.length >= 60){
             		alert("最多60个");
+                    return;
             	}
             	result.style.width = result.childNodes.length * 45 + "px";
             	insertFromLeft();
             });
             document.getElementById('insertFromRight').addEventListener('click', function(){
-            	if(result.childNodes.length > 60){
+            	if(result.childNodes.length >= 60){
             		alert("最多60个");
+                    return;
             	}
             	result.style.width = result.childNodes.length * 45 + "px";
             	insertFromRight();
