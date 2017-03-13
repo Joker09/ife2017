@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<textarea id="" cols="30" rows="10"></textarea>
+	<button id="btn1">console</button>
+	<ul id="show"></ul>
+	<br> 	
+	<input type="text" id="search"><button id="btn2">查询</button>
+	<script>
+		(function(){
+			var textarea = document.getElementsByTagName('textarea')[0];
+			var show = document.getElementById('show');
+			var btn1 = document.getElementById('btn1');
+			btn1.addEventListener('click', function(){
+				
+				var msg = textarea.value;
+				var msgArr = msg.split(/[\s+|\，|\,|\、]+/);
+				var html = '';
+				for(var i = 0; i < msgArr.length; i++){
+					html += '<li>' + msgArr[i] + '</li>';
+				}
+
+				show.innerHTML = html;
+			});
+
+			var search = document.getElementById('search');
+			var btn2 = document.getElementById('btn2');
+			btn2.addEventListener('click', function(){
+				var keywd = search.value;
+				var pattern = new RegExp(keywd, 'i');
+				console.log(pattern);
+				var list = show.getElementsByTagName('li');
+				for(var j = 0; j < list.length; j++){
+					if(pattern.test(list[j].innerHTML)){
+						list[j].style.color = 'red';
+					}
+				}
+			})
+		})();
+	</script>
+</body>
+</html>
