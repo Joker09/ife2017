@@ -75,7 +75,7 @@
 
                 // 避免浏览器窗口不够导致换行
                 result.style.width = result.childNodes.length * 45 + "px";
-                
+
                 var newNode = document.createElement('li');
                 newNode.innerText = val;
                 newNode.style.lineHeight = newNode.style.height = val + "px";
@@ -121,22 +121,26 @@
                 });
             }
 
-            // 冒泡排序（可视化效果不太好）
+            // 冒泡排序
             function sort(nodelist) {
    				var l = nodelist.length;
 			    var parent = nodelist[0].parentNode;
-                var i = 0;
+                var i = 0, j = 0;
                 var timer = setInterval(function(){
-                    if (i > l-2){
+                    if (i >= l){
                         clearInterval(timer);
                     }
-                        for(var j = i; j < l; j++){
-                            if((+nodelist[i].innerText) > (+nodelist[j].innerText)){
-                                parent.insertBefore(nodelist[j],nodelist[i]);
-                            }
-                        }
-                    i++;    
-                },100);  	
+                   
+                    if(j == l - 1 - i){    
+                        j = 0;
+                        i++;
+                    }
+                    
+                    if((+nodelist[j].innerText) > (+nodelist[j+1].innerText)){
+                        parent.insertBefore(nodelist[j+1],nodelist[j]);
+                    }
+                    j++;    
+                },30);  	
 			} 
 
 
