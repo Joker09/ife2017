@@ -42,7 +42,7 @@
 
             // 获取显示结果的节点
             var result = document.getElementById('result');
-
+            var timer;
             // 获取输入的值
             function getValue() {
                 return document.getElementById('num').value;
@@ -126,7 +126,7 @@
    				var l = nodelist.length;
 			    var parent = nodelist[0].parentNode;
                 var i = 0, j = 0;
-                var timer = setInterval(function(){
+                timer = setInterval(function(){
                     if (i >= l){
                         clearInterval(timer);
                     }
@@ -147,6 +147,7 @@
             // 创建一组随机的数（方便测试）
             function createRandom() {
                 result.innerHTML = '';
+                clearInterval(timer);
                 for (var i = 0; i < 60; i++){
                     var newNode = document.createElement('li');
                     var val = Math.floor((Math.random()*90+10));
