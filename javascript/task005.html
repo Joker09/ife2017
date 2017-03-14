@@ -40,61 +40,79 @@
     <script>
         (function(){
 
-            var result = document.getElementById('result'); // 获取显示结果的节点
+            // 获取显示结果的节点
+            var result = document.getElementById('result');
 
             // 获取输入的值
-            function getValue(){
+            function getValue() {
                 return document.getElementById('num').value;
             }
 
+            // 检查输入的有效性
+            function checkValue(val) {
+               if((val % 1) != 0 || val > 100 || val < 10){
+                    return false;
+               }else{
+                return true;
+               }
+            }
+
             // 清空输入框
-            function clearValue(){
+            function clearValue() {
                 document.getElementById('num').value = '';
+            }
+
+            // 创建节点
+            function createNewNode() {
+                var val = getValue();
+                if(!checkValue(val)){
+                    return;
+                }
+                if (result.childNodes.length >= 60){
+                    alert("最多60个");
+                    return;
+                }
+
+                // 避免浏览器窗口不够导致换行
+                result.style.width = result.childNodes.length * 45 + "px";
+                
+                var newNode = document.createElement('li');
+                newNode.innerText = val;
+                newNode.style.lineHeight = newNode.style.height = val + "px";
+                clearValue();
+                return newNode;
             }
 
 
             // 左侧入
-            function insertFromLeft(){
-                var val = getValue();
-                if(!val || isNaN(val) || val > 100 || val < 10 || ((val % 1) != 0)){
-                    return;
-                }
-                var newNode = document.createElement('li');
-                newNode.innerText = val;
-                newNode.style.lineHeight = newNode.style.height = val + "px";
+            function insertFromLeft() {
+                var newNode = createNewNode();
                 result.insertBefore(newNode, result.firstElementChild);
-                clearValue();
+                
             }
 
             // 右侧入
-            function insertFromRight(){
-                var val = getValue();
-                if(!val || isNaN(val) || val > 100 || val < 10 || ((val % 1) != 0)){
-                    return;
-                }
-                var newNode = document.createElement('li');
-                newNode.innerText = val;
-                newNode.style.lineHeight = newNode.style.height = val + "px";
+            function insertFromRight() {
+                var newNode = createNewNode();
                 result.appendChild(newNode);
-                clearValue();
             }
 
             // 左侧出
-            function deleteFromLeft (){
+            function deleteFromLeft() {
                 var item = result.firstElementChild;
                 alert(item.innerText);
                 result.removeChild(item);
             }
 
             // 右侧出
-            function deleteFromRight(){
+            function deleteFromRight() {
                 var item = result.lastElementChild;
                 alert(item.innerText);
                 result.removeChild(item);
             }
 
-            // 点击任何一个
-            function clickAnyone(){
+            // 点击任何一个元素
+            function clickAnyone() {
                 result.addEventListener('click', function(e){
                     if(e.target.tagName.toLowerCase() === 'li'){
                         alert(e.target.innerText);
@@ -103,13 +121,13 @@
                 });
             }
 
-            // 冒泡排序
-            function sort(nodelist){
+            // 冒泡排序（可视化效果不太好）
+            function sort(nodelist) {
    				var l = nodelist.length;
 			    var parent = nodelist[0].parentNode;
                 var i = 0;
                 var timer = setInterval(function(){
-                    if(i > l-2){
+                    if (i > l-2){
                         clearInterval(timer);
                     }
                         for(var j = i; j < l; j++){
@@ -118,13 +136,14 @@
                             }
                         }
                     i++;    
-                },100);
-			  	
+                },100);  	
 			} 
 
-            function createRandom(){
+
+            // 创建一组随机的数（方便测试）
+            function createRandom() {
                 result.innerHTML = '';
-                for(var i = 0; i < 60; i++){
+                for (var i = 0; i < 60; i++){
                     var newNode = document.createElement('li');
                     var val = Math.floor((Math.random()*90+10));
                     newNode.innerText = val;
@@ -134,30 +153,20 @@
                 }
             }         
 
-            document.getElementById('insertFromLeft').addEventListener('click', function(){
-            	if(result.childNodes.length >= 60){
-            		alert("最多60个");
-                    return;
-            	}
-            	result.style.width = result.childNodes.length * 45 + "px";
-            	insertFromLeft();
-            });
-            document.getElementById('insertFromRight').addEventListener('click', function(){
-            	if(result.childNodes.length >= 60){
-            		alert("最多60个");
-                    return;
-            	}
-            	result.style.width = result.childNodes.length * 45 + "px";
-            	insertFromRight();
-            });
+            document.getElementById('insertFromLeft').addEventListener('click', insertFromLeft);
+            document.getElementById('insertFromRight').addEventListener('click', insertFromRight);
+
             document.getElementById('deleteFromLeft').addEventListener('click', deleteFromLeft);
             document.getElementById('deleteFromRight').addEventListener('click', deleteFromRight);
+
             clickAnyone();
+
             document.getElementById('createRandom').addEventListener('click', createRandom);
+
             document.getElementById('sort').addEventListener('click',function(){
-            	var nodelist = result.getElementsByTagName('li');
-            	sort(nodelist);
+            	sort(result.children);
             })
+
         })();
     </script>
 </body>
