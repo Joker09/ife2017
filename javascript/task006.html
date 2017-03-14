@@ -1,46 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #result {
+           padding: 0;
+           font-size: 0;
+           overflow: hidden;
+        }
+
+        #result li {
+           
+            display: inline-block;
+			vertical-align: bottom;
+            color: #fff;
+            font-size: 12px;
+            display: inline-block;
+            list-style: none;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: red;
+
+            line-height: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
-	<textarea id="" cols="30" rows="10"></textarea>
-	<button id="btn1">console</button>
-	<ul id="show"></ul>
-	<br> 	
-	<input type="text" id="search"><button id="btn2">查询</button>
-	<script>
-		(function(){
-			var textarea = document.getElementsByTagName('textarea')[0];
-			var show = document.getElementById('show');
-			var btn1 = document.getElementById('btn1');
-			btn1.addEventListener('click', function(){
-				
-				var msg = textarea.value;
-				var msgArr = msg.split(/[\s+|\，|\,|\、]+/);
-				var html = '';
-				for(var i = 0; i < msgArr.length; i++){
-					html += '<li>' + msgArr[i] + '</li>';
-				}
+	<p>允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔</p>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <button id="insertFromLeft">左侧入</button>  
+    <button id="insertFromRight">右侧入</button>  
+    <button id="deleteFromLeft">左侧出</button>  
+    <button id="deleteFromRight">右侧出</button>
+    <input type="text" id="keywd">
+    <button id="search">查询</button>
+    <ul id="result">
+    </ul>
+    <script>
+        (function(){
+            var result = document.getElementById('result');
 
-				show.innerHTML = html;
-			});
+            // 获取textarea中的值并转成数组返回
+            function getArray() {
+                var text = document.getElementsByTagName('textarea')[0].value;
+                var arr = text.split(/[,，、\s]+/);
+                for (var i in arr) {
+                    if (!arr[i]) {
+                        arr.splice(arr[i]);
+                    }
+                }
 
-			var search = document.getElementById('search');
-			var btn2 = document.getElementById('btn2');
-			btn2.addEventListener('click', function(){
-				var keywd = search.value;
-				var pattern = new RegExp(keywd, 'i');
-				console.log(pattern);
-				var list = show.getElementsByTagName('li');
-				for(var j = 0; j < list.length; j++){
-					if(pattern.test(list[j].innerHTML)){
-						list[j].style.color = 'red';
-					}
-				}
-			})
-		})();
-	</script>
+                return arr;
+            }
+
+            // 创建待插入的节点
+            function creatNewNode(){
+                var arr      = getArray(),
+                    l        = arr.length,
+                    nodeList = [];
+                for (var i = 0; i < l; i++) {
+                    var newNode = document.createElement('li');
+                    newNode.innerText = arr[i];
+
+                    nodeList.push(newNode);
+                }
+
+                return nodeList;
+            }
+
+            // 左侧入
+            function insertFromLeft() {
+                var nodeList = creatNewNode();
+                nodeList.forEach(function(item){
+                    result.insertBefore(item, result.firstElementChild);
+                });
+            }
+
+            // 右侧入
+            function insertFromRight() {
+                var nodeList = creatNewNode();
+                nodeList.forEach(function(item){
+                    result.appendChild(item);
+                });
+            } 
+
+             // 左侧出
+            function deleteFromLeft() {
+                var item = result.firstElementChild;
+                alert(item.innerText);
+                result.removeChild(item);
+            }
+
+            // 右侧出
+            function deleteFromRight() {
+                var item = result.lastElementChild;
+                alert(item.innerText);
+                result.removeChild(item);
+            }  
+
+            // 点击任何一个元素
+            function clickAnyone() {
+                result.addEventListener('click', function(e){
+                    if (e.target.tagName.toLowerCase() === 'li') {
+                        alert(e.target.innerText);
+                        result.removeChild(e.target);
+                    }
+                });
+            }
+
+            function getKeywd() {
+                return document.getElementById('keywd').value;
+            }
+
+            function search() {
+                var keywd    = getKeywd(),
+                    pattern  = new RegExp(keywd, 'i');
+                    nodeList = result.children;
+
+                for (var i = 0, l = nodeList.length; i < l; i++) {
+                    if (pattern.test(nodeList[i].innerText)) {
+                        nodeList[i].style.color = 'blue';
+                    }
+                }
+
+            }
+
+            document.getElementById('insertFromLeft').addEventListener('click', insertFromLeft);
+            document.getElementById('insertFromRight').addEventListener('click', insertFromRight);
+
+            document.getElementById('deleteFromLeft').addEventListener('click', deleteFromLeft);
+            document.getElementById('deleteFromRight').addEventListener('click', deleteFromRight);
+
+            clickAnyone();
+
+            document.getElementById('search').addEventListener('click', search);
+        })();
+    </script>
 </body>
-</html>
