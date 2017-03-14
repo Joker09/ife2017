@@ -72,10 +72,7 @@
                     alert("最多60个");
                     return;
                 }
-
-                // 避免浏览器窗口不够导致换行
-                result.style.width = result.childNodes.length * 45 + "px";
-
+                
                 var newNode = document.createElement('li');
                 newNode.innerText = val;
                 newNode.style.lineHeight = newNode.style.height = val + "px";
@@ -127,7 +124,7 @@
 			    var parent = nodelist[0].parentNode;
                 var i = 0, j = 0;
                 timer = setInterval(function(){
-                    if (i >= l){
+                    if (i >= l -1){
                         clearInterval(timer);
                     }
                    
