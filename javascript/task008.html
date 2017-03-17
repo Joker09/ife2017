@@ -75,7 +75,7 @@
 		<div class="one">12
 			<div class="two">13
 				<div class="three">14</div>
-				<div class="three">15</div>
+				<div class="three">12</div>
 				<div class="three">16</div>
 			</div>
 			<div class="two">17
@@ -89,7 +89,7 @@
 	</div>
 	<div class="act">
 		<button class="traverse">遍历</button>
-		<input type="text" class="keywd" placeholder="请输入关键词">
+		<input type="text" class="keywd" placeholder="输入12看看">
 		<button class="search">查找</button>
 	</div>
 	<script>
@@ -108,23 +108,30 @@
 			}
 
 			function animate(nodeList, keywd) {
-				    animateEnd = false;
-				           var i = 0;
+				      animateEnd = false;
+				           var i = 0,
+				    searchResult = [];
 				setTimeout(function foo(){
-					if(i > nodeList.length - 1 || nodeList[i].firstChild.nodeValue.trim() === keywd){
+					if(i > nodeList.length - 1 ){
 						animateEnd = true;
 						arr = [];
-						if(nodeList[i]){
-							nodeList[i].style.backgroundColor = 'red';
-						}else if(keywd){
-							alert('找不到')
+						if(!searchResult.includes(nodeList[i-1])){
+							nodeList[i - 1].style.backgroundColor = '#fff';
 						}
-						nodeList[i - 1].style.backgroundColor = '#fff';
+						if(keywd && (searchResult.length == 0)){
+							alert('找不到');
+						}
 						return;
 					}
-
-					nodeList[i].style.backgroundColor = '#00f';
-					if(i) {
+					if(nodeList[i].firstChild.nodeValue.trim() == keywd){
+						searchResult.push(nodeList[i]);
+						nodeList[i].style.backgroundColor = 'red';
+					}
+					if(!searchResult.includes(nodeList[i])){
+						nodeList[i].style.backgroundColor = '#00f';
+					}
+					
+					if(i && !searchResult.includes(nodeList[i-1])) {
 						nodeList[i - 1].style.backgroundColor = '#fff';
 					}
 					i++;
