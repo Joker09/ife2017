@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div {
+			border: 1px solid #000;
+			background-color: #fff;
+		}
+
+		.root {
+			display: flex;
+			width: 1000px;
+			height: 200px;
+			margin: auto;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.one {
+			display: flex;
+			height: 150px;
+			margin: 0 20px;
+			width: 450px;
+			justify-content: center;
+			align-items: center;
+			
+		}
+
+		.two {
+			display: flex;
+			height: 120px;
+			margin: 0 10px;
+			width: 200px;
+			align-items: center;
+		}
+
+		.three {
+			width: 80px;
+			margin: 0 10px;
+			height: 80px;
+		}
+
+		.act {
+			border: none;
+			text-align: center;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="root">
+		<div class="one">
+			<div class="two">
+				<div class="three"></div>
+				<div class="three"></div>
+			</div>
+			<div class="two">
+				<div class="three"></div>
+				<div class="three"></div>
+			</div>
+		</div>		
+		<div class="one">
+			<div class="two">
+				<div class="three"></div>
+				<div class="three"></div>
+			</div>
+			<div class="two">
+				<div class="three"></div>
+				<div class="three"></div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="act">
+		<button class="preOrder">前序遍历</button>
+		<button class="inOrder">中序遍历</button>
+		<button class="postOrder">后序遍历</button>
+	</div>
+	<script>
+		(function(){
+
+			var rootNode = document.getElementsByClassName('root')[0];
+			var animateEnd = true;
+			var arr = [];
+			function DFSTraverse(node) {
+				var stack = [];
+				stack.push(node);
+				while (stack.length > 0){
+					var temp = stack.pop();
+					arr.push(temp);
+					if(temp.firstElementChild){
+						stack.push(temp.firstElementChild);
+					}
+					if(temp.lastElementChild){
+						stack.push(temp.lastElementChild);
+					}
+				}
+			}
+
+			function BFSTraverse() {
+				var stack = [];
+				stack.push(node);
+				while (stack.length > 0){
+					var temp = stack.shift();
+					arr.push(temp);
+					if(temp.firstElementChild){
+						stack.push(temp.firstElementChild);
+					}
+					if(temp.lastElementChild){
+						stack.push(temp.lastElementChild);
+					}
+				}
+			}
+
+			// 前序遍历
+			function preOrder(node) {
+				if (!(node == null)){
+					arr.push(node);
+					preOrder(node.firstElementChild);
+					preOrder(node.lastElementChild);
+					
+				}
+			}
+
+			// 中序遍历
+			function inOrder(node) {
+				if (!(node == null)){
+					inOrder(node.firstElementChild);
+					arr.push(node);
+					inOrder(node.lastElementChild);
+					
+				}
+			}
+
+			// 后序遍历
+			function postOrder(node) {
+				if (!(node == null)){
+					postOrder(node.firstElementChild);
+					postOrder(node.lastElementChild);
+					arr.push(node);
+				}
+			}
+
+			function animate(nodeList) {
+				    animateEnd = false;
+				           var i = 0;
+				setTimeout(function foo(){
+					if(i > nodeList.length - 1){
+						animateEnd = true;
+						arr = [];
+						nodeList[i - 1].style.backgroundColor = '#fff';
+						return;
+					}
+					nodeList[i].style.backgroundColor = '#00f';
+					if(i) {
+						nodeList[i - 1].style.backgroundColor = '#fff';
+					}
+					i++;
+					setTimeout(foo, 500);
+				}, 500);
+ 			}
+
+ 			// 为按钮绑定事件
+ 			document.getElementsByClassName('act')[0].addEventListener('click', function(e){
+ 				switch(e.target.className){
+ 					case 'preOrder':
+ 					(function(){
+ 						if(animateEnd){
+ 							preOrder(rootNode);
+ 							animate(arr);
+ 						}
+ 					})();
+ 					break;
+ 					case 'inOrder':
+ 					(function(){
+ 						if(animateEnd){
+ 							inOrder(rootNode);
+ 							animate(arr);
+ 						}
+ 					})();
+ 					break;
+ 					case 'postOrder':
+ 					(function(){
+ 						if(animateEnd){
+ 							postOrder(rootNode);
+ 							animate(arr);
+ 						}
+ 					})();
+ 					break;
+ 					default:
+ 					return;
+ 				}
+ 			});
+
+		})();
+	</script>
+
+</body>
+</html>
