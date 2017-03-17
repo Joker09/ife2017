@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div {
+			border: 1px solid #000;
+			background-color: #fff;
+		}
+
+		.root {
+			display: flex;
+			width: 1300px;
+			height: 200px;
+			margin: auto;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.one {
+			display: flex;
+			height: 150px;
+			margin: 0 20px;
+			width: 430px;
+			justify-content: center;
+			align-items: center;
+			
+		}
+
+		.two {
+			display: flex;
+			height: 120px;
+			margin: 0 10px;
+			width: 180px;
+			align-items: center;
+		}
+
+		.three {
+			display: flex;
+			width: 50px;
+			margin: 0 10px;
+			height: 80px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.four {
+			width: 20px;
+			height: 40px;
+		}
+
+		.act {
+			border: none;
+			text-align: center;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="root">1
+		<div class="one">2
+			<div class="two">3
+				<div class="three">4</div>
+				<div class="three">5</div>
+				<div class="three">6</div>
+				<div class="three">7</div>
+			</div>
+			<div class="two">8</div>
+			<div class="two">9
+				<div class="three">10</div>
+				<div class="three">11</div>
+			</div>
+		</div>		
+		<div class="one">12
+			<div class="two">13
+				<div class="three">14</div>
+				<div class="three">15</div>
+				<div class="three">16</div>
+			</div>
+			<div class="two">17
+				<div class="three">18
+					<div class="four">19</div>
+				</div>
+				<div class="three">20</div>
+			</div>
+		</div>
+		<div class="one">21</div>		
+	</div>
+	<div class="act">
+		<button class="traverse">遍历</button>
+		<input type="text" class="keywd" placeholder="请输入关键词">
+		<button class="search">查找</button>
+	</div>
+	<script>
+		(function(){
+			var rootNode = document.getElementsByClassName('root')[0];
+			var arr = [];
+			var animateEnd = true;
+			function treeTraverse(node) {
+				if(!(node == null)){
+					for(var i = 0, length = node.children.length; i < length; i++){
+						treeTraverse(node.children[i]);
+					}
+					node.style.backgroundColor = '#fff';
+					arr.push(node);
+				}
+			}
+
+			function animate(nodeList, keywd) {
+				    animateEnd = false;
+				           var i = 0;
+				setTimeout(function foo(){
+					if(i > nodeList.length - 1 || nodeList[i].firstChild.nodeValue.trim() === keywd){
+						animateEnd = true;
+						arr = [];
+						if(nodeList[i]){
+							nodeList[i].style.backgroundColor = 'red';
+						}
+						nodeList[i - 1].style.backgroundColor = '#fff';
+						return;
+					}
+
+					nodeList[i].style.backgroundColor = '#00f';
+					if(i) {
+						nodeList[i - 1].style.backgroundColor = '#fff';
+					}
+					i++;
+					setTimeout(foo, 500);
+				}, 500);
+ 			}
+			
+			document.getElementsByClassName('act')[0].addEventListener('click', function(e){
+				switch(e.target.className){
+					case 'traverse':
+					(function(){
+ 						if(animateEnd){
+ 							treeTraverse(rootNode);
+ 							animate(arr);
+ 						}
+ 					})();
+ 					break;
+ 					case 'search':
+ 					(function(){
+ 						if(animateEnd){
+ 							var keywd = document.getElementsByClassName('keywd')[0].value;
+ 							treeTraverse(rootNode);
+ 							animate(arr, keywd);
+ 						}
+ 					})();
+				}
+			});
+			
+		})();
+	</script>
+</body>
+</html>
