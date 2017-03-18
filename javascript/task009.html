@@ -6,46 +6,76 @@
 	<style>
 		div {
 			border: 1px solid #000;
+			background-color: #fff;
 			cursor: pointer;
 		}
 
 		.root {
-			width: 90%;
+			display: flex;
+			width: 1300px;
 			height: 200px;
 			margin: auto;
-			display: flex;
+			justify-content: center;
 			align-items: center;
-			justify-content: space-around;
 		}
 
-		.one {
+		.c {
 			display: flex;
+			height: 80%;
+			margin: 0 20px;
 			width: 45%;
-			height: 90%;
+			justify-content: center;
 			align-items: center;
-			justify-content: space-around;
+			
 		}
 
-
-		button, input {
-			display: block;
-			margin: 20px auto;
+		.act {
+			border: none;
+			text-align: center;
+			margin-top: 20px;
 		}
 	</style>
 </head>
 <body>
-	<div class="root">
-		<div class="one">
-			<div class="one"></div>
+	<div class="root">1
+		<div class="c">2
+			<div class="c">3
+				<div class="c">4</div>
+				<div class="c">5</div>
+				<div class="c">6</div>
+				<div class="c">7</div>
+			</div>
+			<div class="c">8</div>
+			<div class="c">9
+				<div class="c">10</div>
+				<div class="c">11</div>
+			</div>
+		</div>		
+		<div class="c">12
+			<div class="c">13
+				<div class="c">14</div>
+				<div class="c">12</div>
+				<div class="c">16</div>
+			</div>
+			<div class="c">17
+				<div class="c">18
+					<div class="c">19</div>
+				</div>
+				<div class="c">20</div>
+			</div>
 		</div>
-		<div class="one">
-			<div class="one"></div>
-		</div>
+		<div class="c">21</div>		
 	</div>
-
-	<button class="del">删除</button>
-	<input type="text" class="content">
-	<button class="add">添加</button>
+	<div class="act">
+		<button class="traverse">遍历</button>
+		<input type="text" class="keywd" placeholder="输入12看看">
+		<button class="search">查找</button>
+		<br>
+		<button class="del">删除</button>
+		<input type="text" class="content" placeholder="请输入添加的内容">
+		<button class="add">添加</button>
+	</div>
+	
 	<script>
 		(function (){
 			var rootNode = document.querySelector('.root'),
@@ -53,7 +83,6 @@
 			     content = document.querySelector('.content'),
 			      addBtn = document.querySelector('.add');
 			var currentNode = null;
-			console.log(rootNode);
 			var arr = [];
 			function traverse(node) {
 				var stack = [];
@@ -103,6 +132,76 @@
 				add(currentNode);
 			});
 			select();
+		})();
+	</script>
+	<script>
+		(function(){
+			var rootNode = document.getElementsByClassName('root')[0];
+			var arr = [];
+			var animateEnd = true;
+			function treeTraverse(node) {
+				if(!(node == null)){
+					for(var i = 0, length = node.children.length; i < length; i++){
+						treeTraverse(node.children[i]);
+					}
+					node.style.backgroundColor = '#fff';
+					arr.push(node);
+				}
+			}
+
+			function animate(nodeList, keywd) {
+				      animateEnd = false;
+				           var i = 0,
+				    searchResult = [];
+				setTimeout(function foo(){
+					if(i > nodeList.length - 1 ){
+						animateEnd = true;
+						arr = [];
+						if(!searchResult.includes(nodeList[i-1])){
+							nodeList[i - 1].style.backgroundColor = '#fff';
+						}
+						if(keywd && (searchResult.length == 0)){
+							alert('找不到');
+						}
+						return;
+					}
+					if(nodeList[i].firstChild.nodeValue.trim() == keywd){
+						searchResult.push(nodeList[i]);
+						nodeList[i].style.backgroundColor = 'red';
+					}
+					if(!searchResult.includes(nodeList[i])){
+						nodeList[i].style.backgroundColor = '#00f';
+					}
+					
+					if(i && !searchResult.includes(nodeList[i-1])) {
+						nodeList[i - 1].style.backgroundColor = '#fff';
+					}
+					i++;
+					setTimeout(foo, 500);
+				}, 500);
+ 			}
+			
+			document.getElementsByClassName('act')[0].addEventListener('click', function(e){
+				switch(e.target.className){
+					case 'traverse':
+					(function(){
+ 						if(animateEnd){
+ 							treeTraverse(rootNode);
+ 							animate(arr);
+ 						}
+ 					})();
+ 					break;
+ 					case 'search':
+ 					(function(){
+ 						if(animateEnd){
+ 							var keywd = document.getElementsByClassName('keywd')[0].value;
+ 							treeTraverse(rootNode);
+ 							animate(arr, keywd);
+ 						}
+ 					})();
+				}
+			});
+			
 		})();
 	</script>
 </body>
