@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div {
+			border: 1px solid #000;
+			cursor: pointer;
+		}
+
+		.root {
+			width: 90%;
+			height: 200px;
+			margin: auto;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+		}
+
+		.one {
+			display: flex;
+			width: 45%;
+			height: 90%;
+			align-items: center;
+			justify-content: space-around;
+		}
+
+
+		button, input {
+			display: block;
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="root">
+		<div class="one">
+			<div class="one"></div>
+		</div>
+		<div class="one">
+			<div class="one"></div>
+		</div>
+	</div>
+
+	<button class="del">删除</button>
+	<input type="text" class="content">
+	<button class="add">添加</button>
+	<script>
+		(function (){
+			var rootNode = document.querySelector('.root'),
+			      delBtn = document.querySelector('.del'),
+			     content = document.querySelector('.content'),
+			      addBtn = document.querySelector('.add');
+			var currentNode = null;
+			console.log(rootNode);
+			var arr = [];
+			function traverse(node) {
+				var stack = [];
+				stack.push(node);
+				while (stack.length > 0){
+					var temp = stack.shift();
+					arr.push(temp);
+					if(temp.children){
+						for(var i = 0; i < temp.children.length; i++){
+							stack.push(temp.children[i]);
+						}
+					}	
+				}
+			}
+
+			function select(){
+				rootNode.addEventListener('click', function(e){
+					traverse(rootNode);
+					for(var i = 0; i < arr.length; i++){
+						arr[i].style.borderColor = '#000'; 
+					}
+					e.target.style.borderColor = 'red';
+					currentNode = e.target;
+				});
+			}
+			
+			function del(node) {
+				if (node.parentNode) {
+  					node.parentNode.removeChild(node);
+  					currentNode = null;
+				}
+			}
+
+			function add(node) {
+				var value = content.value;
+				var newNode = document.createElement('div');
+				newNode.className = 'one';
+				newNode.innerText = value;
+				node.appendChild(newNode);
+			}
+
+			delBtn.addEventListener('click', function() {
+				del(currentNode);
+			})
+
+			addBtn.addEventListener('click', function(){
+				add(currentNode);
+			});
+			select();
+		})();
+	</script>
+</body>
+	
+
+</html>
