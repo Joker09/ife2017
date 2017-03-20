@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h3 class="text-center">表单验证</h3>
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-xs-2">名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control j-getValue">
+						</div>
+						<div class="col-xs-2">
+							<input type="button" class="form-control btn-primary btn j-checkValid" value="验证">
+						</div>
+						<div class="col-xs-12">
+							<p class="text-muted j-info">必填,长度应为4~16个字符</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		(function() {
+			var valueDom    = document.querySelector('.j-getValue'),
+				checkBtn    = document.querySelector('.j-checkValid'),
+				infoDom     = document.querySelector('.j-info');
+			function checkValide(str) {
+				var length = getLength(str);
+				if(!length){
+					console.log(infoDom.classList);
+					infoDom.className += ' text-danger';
+					infoDom.innerText = '姓名不能为空';
+					console.log(infoDom.classList);
+				}else if(length > 16 || length < 4){
+					infoDom.className += ' text-danger';
+					infoDom.innerText = '长度应为4~16个字符';
+				}else {
+					if([].includes.call(infoDom.classList,'text-danger')){
+						infoDom.classList.replace('text-danger', '');
+					}
+					infoDom.className += ' text-info';
+					infoDom.innerText = '校验成功';
+				}
+			}
+
+
+
+			function getLength(str) {
+				var enLen = 0;
+				var chLen = 0;
+				for(let i of str){
+					if(isASCII(i)){
+						enLen++;
+					}else{
+						chLen++;
+					}
+				}
+
+				return enLen + (chLen * 2);
+			}
+
+			function isASCII(ch) {
+				return ch.codePointAt(0) <= 0xFF;
+			}
+
+			checkBtn.addEventListener('click', function(){
+				var str = valueDom.value;
+				checkValide(str);
+			});
+		})();
+	</script>
+</body>
+</html>
