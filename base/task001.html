@@ -44,7 +44,7 @@
 					infoDom.innerText = '长度应为4~16个字符';
 				}else {
 					if([].includes.call(infoDom.classList,'text-danger')){
-						infoDom.classList.replace('text-danger', '');
+						infoDom.className = infoDom.className.replace('text-danger', '');
 					}
 					infoDom.className += ' text-info';
 					infoDom.innerText = '校验成功';
