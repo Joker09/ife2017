@@ -110,10 +110,16 @@
 			}
 			
 			function del(node) {
+				if(node.className == 'root'){
+					alert('不能删除根节点');
+					return;
+				}
+
 				if (node.parentNode) {
   					node.parentNode.removeChild(node);
   					currentNode = null;
 				}
+
 			}
 
 			function add(node) {
