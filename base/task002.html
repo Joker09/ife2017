@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h3 class="text-center">表单验证(二)</h3>
+			<form class="col-md-6 col-md-offset-3">
+				<div class="form-group">
+					<label for="" class="col-md-2 text-right">名称</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" id="name">
+					</div>
+					<p class="col-md-offset-2 col-md-10 text-hide"></p>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-md-2 text-right">密码</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" id="password">
+					</div>
+					<p class="col-md-offset-2 col-md-10 text-hide"></p>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-md-2 text-right" >密码确认</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" id="confirmPassword">
+					</div>
+					<p class="col-md-offset-2 col-md-10 text-hide"></p>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-md-2 text-right">邮箱</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" id="email">
+					</div>
+					<p class="col-md-offset-2 col-md-10 text-hide"></p>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-md-2 text-right">手机</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control"  id="phone">
+					</div>
+					<p class="col-md-offset-2 col-md-10 text-hide"></p>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3 pull-right">
+						<input type="submit" class="btn btn-primary btn-block" id="submit">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		(function(){
+
+			// util 
+			function $(selector, context){
+				if(context){
+					return context.querySelector(selector);
+				}
+
+				return document.querySelector(selector);
+			}
+
+			function hasClass(ele, className){
+				return [].includes.call(ele.classList, className);
+			}
+
+			function addClass(ele, className) {
+				if(!hasClass(ele, className)) {
+					ele.className = ele.className + ' ' + className;
+				}
+			}
+
+			function removeClass(ele, className) {
+				if(hasClass(ele, className)) {
+					ele.className = ele.className.replace(className, '');
+				}
+			}
+
+			function getLength(str) {
+				var enLen = 0;
+				var chLen = 0;
+				for(let i of str){
+					if(isASCII(i)){
+						enLen++;
+					}else{
+						chLen++;
+					}
+				}
+
+				return enLen + (chLen * 2);
+			}
+
+			function isASCII(ch) {
+				return ch.codePointAt(0) <= 0xFF;
+			}
+
+
+			// 构造函数
+			function Validate(name, password, confirmPassword, email, phone, submit) {
+				this.name = $(name);
+				this.password = $(password);
+				this.confirmPassword = $(confirmPassword);
+				this.email = $(email);
+				this.phone = $(phone);
+				this.submit = $(submit);
+				this.init();
+			}
+
+			// 原型方法
+			Validate.prototype = {
+				init: function() {
+					var _this = this;
+					this.name.rule = {
+						defaultInfo: '长度为4-16位字符',
+						msg: '',
+						checkValid: function(str) {
+							var length = getLength(str);
+							if(!length){
+								this.msg = {
+									valid: false,
+									info: '名称不能为空'
+								}
+							}
+							else if (length > 16 || length < 4){
+								this.msg = {
+									valid: false,
+									info: '名称的长度应为4-16位字符'
+								}
+							}else {
+								this.msg = {
+									valid: true,
+									info: '校验成功'
+								}
+							}
+							_this.handleMsg(_this.name, this.msg);
+						}
+					}
+					this.password.rule = {
+						defaultInfo: '长度为4-16位字符. 包含至少一个字母字符,至少一个数字',
+						msg: '',
+						checkValid: function(str) {
+							var length = getLength(str);
+							if(!length){
+								this.msg = {
+									valid: false,
+									info: '密码不能为空'
+								}
+							}else if(length > 16 || length < 4){
+								this.msg = {
+									valid: false,
+									info: '密码的长度应为4-16位字符'
+								}
+							}else if(!(/[A-Za-z]/.test(str))){
+								this.msg = {
+									valid: false,
+									info: '请至少包含一个字母[A-Za-z]'
+								}
+							}else if(!(/\d/.test(str))){
+								this.msg = {
+									valid: false,
+									info: '请至少包含一个数字'
+								}
+							}else {
+								this.msg = {
+									valid: true,
+									info: '密码可用'
+								}
+								
+							}
+							_this.handleMsg(_this.password, this.msg);
+						}
+					}
+					this.confirmPassword.rule = {
+						defaultInfo: '再次输入相同的密码',
+						msg: '',
+						checkValid: function(str) {
+							var length = getLength(str);
+							if(!length){
+								this.msg = {
+									valid: false,
+									info: '密码不能为空'
+								}
+							}else if(str !== _this.password.value){
+								this.msg = {
+									valid: false,
+									info: '输入的密码不一致'
+								}
+							}else {
+								this.msg = {
+									valid: true,
+									info: '输入的密码一致'
+								}
+							}
+							_this.handleMsg(_this.confirmPassword, this.msg);
+						}
+					}
+					this.email.rule = {
+						defaultInfo: '输入有效的邮箱地址',
+						msg: '',
+						checkValid: function(str) {
+							if(!(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(str))){
+								this.msg = {
+									valid: false,
+									info: '邮箱地址格式有误'
+								}
+							}else {
+								this.msg = {
+									valid: true,
+									info: '邮箱地址可用'
+								}
+							}
+							_this.handleMsg(_this.email, this.msg);
+						}
+					}
+					this.phone.rule = {
+						defaultInfo: '输入有效的电话号码',
+						msg: '',
+						checkValid: function(str) {
+							if(!(/^(13[0-9]|15[0|1|3|6|7|8|9]|18[8|9])\d{8}$/.test(str))){
+								this.msg = {
+									valid: false,
+									info: '电话号码格式有误'
+								}
+							}else {
+								this.msg = {
+									valid: true,
+									info: '电话号码可用'
+								}
+							}
+							_this.handleMsg(_this.phone, this.msg);
+						}
+					}
+					this.initEvent();
+				},
+
+				initEvent: function() {
+					var checkArr = [this.name, this.password, this.confirmPassword, this.email, this.phone];
+					checkArr.forEach(function(item){
+						item.onfocus = function (){
+							var infoDOM = $('p', this.parentNode.parentNode);
+							infoDOM.innerText = this.rule.defaultInfo;
+							removeClass(infoDOM, 'text-hide');
+							removeClass(infoDOM, 'text-danger');
+							addClass(infoDOM, 'text-muted');
+						}
+
+						item.onblur = function() {
+							var infoDOM = $('p', this.parentNode.parentNode);
+							var value = this.value;
+							this.rule.checkValid(value);
+						}
+					});
+
+					this.submit.onclick = function() {
+						var err = 0;
+						checkArr.forEach(function(item) {
+							item.onblur();
+							if(!item.rule.msg.valid){
+								err++;
+							}
+						});
+						if(err > 0) {
+							alert('提交失败');
+						}else{
+							alert('提交成功');
+						}
+						return false;
+					}
+				},
+
+				handleMsg: function(node, msg) {
+					var infoDOM = $('p', node.parentNode.parentNode);
+					removeClass(infoDOM, 'text-hide');
+					infoDOM.innerText = msg.info;
+					if(msg.valid){
+						node.style.borderColor = '#25be4e';
+						removeClass(infoDOM, 'text-danger');
+						addClass(infoDOM, 'text-info');
+					}else {
+						node.style.borderColor = '#f60000';
+						removeClass(infoDOM, 'text-info');
+						addClass(infoDOM, 'text-danger');
+					}
+				}
+			}
+
+			new Validate('#name', '#password', '#confirmPassword', '#email', '#phone', '#submit');
+		})();
+	</script>
+</body>
+</html>
