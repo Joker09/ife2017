@@ -34,6 +34,7 @@
 				infoDom     = document.querySelector('.j-info');
 			function checkValide(str) {
 				var length = getLength(str);
+
 				if(!length){
 					console.log(infoDom.classList);
 					infoDom.className += ' text-danger';
@@ -46,6 +47,7 @@
 					if([].includes.call(infoDom.classList,'text-danger')){
 						infoDom.className = infoDom.className.replace('text-danger', '');
 					}
+
 					infoDom.className += ' text-info';
 					infoDom.innerText = '校验成功';
 				}
@@ -72,7 +74,8 @@
 			}
 
 			checkBtn.addEventListener('click', function(){
-				var str = valueDom.value;
+				var str = valueDom.value.replace(/\s/g, '');
+				valueDom.value = str;
 				checkValide(str);
 			});
 		})();
