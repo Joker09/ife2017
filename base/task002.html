@@ -137,7 +137,6 @@
 									info: '校验成功'
 								}
 							}
-							_this.handleMsg(_this.name, this.msg);
 						}
 					}
 					this.password.rule = {
@@ -170,9 +169,7 @@
 									valid: true,
 									info: '密码可用'
 								}
-								
 							}
-							_this.handleMsg(_this.password, this.msg);
 						}
 					}
 					this.confirmPassword.rule = {
@@ -196,7 +193,6 @@
 									info: '输入的密码一致'
 								}
 							}
-							_this.handleMsg(_this.confirmPassword, this.msg);
 						}
 					}
 					this.email.rule = {
@@ -214,7 +210,6 @@
 									info: '邮箱地址可用'
 								}
 							}
-							_this.handleMsg(_this.email, this.msg);
 						}
 					}
 					this.phone.rule = {
@@ -232,7 +227,6 @@
 									info: '电话号码可用'
 								}
 							}
-							_this.handleMsg(_this.phone, this.msg);
 						}
 					}
 					this.initEvent();
@@ -240,12 +234,14 @@
 
 				initEvent: function() {
 					var checkArr = [this.name, this.password, this.confirmPassword, this.email, this.phone];
+					var _this = this;
 					checkArr.forEach(function(item){
 						item.onfocus = function (){
 							var infoDOM = $('p', this.parentNode.parentNode);
 							infoDOM.innerText = this.rule.defaultInfo;
 							removeClass(infoDOM, 'text-hide');
 							removeClass(infoDOM, 'text-danger');
+							removeClass(infoDOM, 'text-info');
 							addClass(infoDOM, 'text-muted');
 						}
 
@@ -253,6 +249,7 @@
 							var infoDOM = $('p', this.parentNode.parentNode);
 							var value = this.value;
 							this.rule.checkValid(value);
+							_this.handleMsg(item, item.rule.msg);
 						}
 					});
 
@@ -278,13 +275,15 @@
 					removeClass(infoDOM, 'text-hide');
 					infoDOM.innerText = msg.info;
 					if(msg.valid){
-						node.style.borderColor = '#25be4e';
 						removeClass(infoDOM, 'text-danger');
 						addClass(infoDOM, 'text-info');
+						removeClass(node.parentNode, 'has-error');
+						addClass(node.parentNode, 'has-success');
 					}else {
-						node.style.borderColor = '#f60000';
 						removeClass(infoDOM, 'text-info');
 						addClass(infoDOM, 'text-danger');
+						removeClass(node.parentNode, 'has-success');
+						addClass(node.parentNode, 'has-error');
 					}
 				}
 			}
