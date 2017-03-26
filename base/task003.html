@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		html,body {
+			height: 100%;
+		}
+		input[type=radio]{
+    		display: none;
+		}
+	
+		label.radio-label {
+			padding-left: 20px;
+			position: relative;
+			cursor: pointer;
+		}
+
+		label.radio-label::before{
+			content: "";
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			border: 1px solid #bbb;
+			left: 0;
+			bottom: 3px;
+			position: absolute;
+		}
+
+		 input[type=radio]:checked+label.radio-label::before  {
+			content: "";
+			width: 6px;
+			height: 6px;
+			background-color: transparent;
+			border-radius: 50%;
+			border: 5px solid #0094ff;
+			left: 0;
+			bottom: 2px;
+			position: absolute;
+		}
+
+		.input-city,
+		.input-school {
+			display: inline-block;
+			width: 200px;
+			height: 30px;
+			text-align: left;
+			line-height: 30px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding-left: 20px;
+			position: relative;
+			margin-left: 20px;
+			cursor: pointer;
+			background: url('./1.png') no-repeat center right;
+
+			user-select: none;
+		}
+	
+
+		.input-school {
+			width: 250px;
+		}
+
+		.selected-city,
+		.selected-school {
+			position: relative;
+			z-index: -1;
+		}
+		
+		.city-wrap,
+		.school-wrap {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			background-color: #eee;
+			border-radius: 5px;
+			padding-left: 0;
+			margin: 0;
+			margin-bottom: 0;
+			display: none;
+		}
+
+
+		.city-wrap li,
+		.school-wrap li {
+			list-style: none;
+			padding-left: 20px;
+		}
+
+		.city-wrap li:hover,
+		.school-wrap li:hover,
+		.city-wrap li.selected,
+		.school-wrap li.selected{
+			background-color: #ccc;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
+		.form-group {
+			display: inline-block;
+			margin: 20px;
+		}
+
+		.input-company {
+			width: 400px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			outline: none;
+			padding-left: 20px;
+			margin-left: 20px;
+		}
+
+		.hide {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+			<h3 class="text-center">表单（三）联动</h3>
+			<div class="option text-center">
+				<div class="form-group" >
+					<input type="radio" name="type" checked="true" id="inschool">
+					<label for="inschool" class="radio-label">在校生</label>
+				</div>
+				<div class="form-group">
+					<input type="radio" name="type" id="outschool">
+					<label for="outschool" class="radio-label">非在校生</label>
+				</div>
+			</div>
+		</div>
+		<div class="text-center">
+			<div class="inschool">
+				<label>学校</label>
+				<div class="input-city">
+					<span class="selected-city">请选择</span>
+					<ul class="city-wrap">
+						
+					</ul>
+				</div>
+				<div class="input-school">
+					<span class="selected-school">请选择</span>
+					<ul class="school-wrap">
+						
+					</ul>
+				</div>
+			</div>
+			<div class="outschool hide">
+				<label>就业单位</label>
+				<input type="text" class="input-company">
+			</div>
+		</div>
+	</div>
+	<script>
+		(function() {
+			var data = [{
+					id: 1,
+					name: '北京',
+					school: [{
+						id: 11,
+						name: '北京大学'
+					}, {
+						id: 12,
+						name: '清华大学'
+					}, {
+						id: 13,
+						name: '中国科技大学'
+					}]
+				}, {
+					id: 2,
+					name: '上海',
+					school: [{
+						id: 21,
+						name: '上海交通大学'
+					}, {
+						id: 22,
+						name: '同济大学'
+					}, {
+						id: 23,
+						name: '复旦大学'
+					}]
+				}, {
+					id: 3,
+					name: '武汉',
+					school: [{
+						id: 31,
+						name: '武汉大学'
+					}, {
+						id: 32,
+						name: '华中科技大学'
+					}, {
+						id: 33,
+						name: '武汉理工大学'
+					}]
+				}];
+
+			var cityWrap = document.querySelector('.city-wrap');
+			var schoolWrap = document.querySelector('.school-wrap');
+			var inputCity = document.querySelector('.input-city');
+			var inputSchool = document.querySelector('.input-school');
+			var selectedCity = document.querySelector('.selected-city');
+			var selectedSchool = document.querySelector('.selected-school');
+			var inSchoolCheck = document.querySelector('#inschool');
+			var outsSchoolCheck = document.querySelector('#outschool');
+			var inSchool = document.querySelector('.inschool');
+			var outSchool = document.querySelector('.outschool');
+			var option = document.querySelector('.option');
+
+			function toggleType(){
+				option.onclick = function(e) {
+					if(e.target.id == 'inschool') {
+						inSchool.style.display = 'block';
+						outSchool.style.display = 'none';
+					}else if(e.target.id == 'outschool'){
+						inSchool.style.display = 'none';
+						outSchool.style.display = 'block';
+					}
+				}
+			}
+
+			function showList() {
+				for(var i = 0; i < data.length; i++){
+					var cityNode = document.createElement('li');
+					cityNode.id = data[i].id;
+					cityNode.innerText = data[i].name;
+					cityWrap.appendChild(cityNode);
+				}
+
+				inSchool.onclick = function(e) {
+					if (e.target == inputCity){
+						if(getComputedStyle(schoolWrap).display == 'block'){
+							schoolWrap.style.display = 'none';
+						}
+						if(getComputedStyle(cityWrap).display == 'none') {
+							cityWrap.style.display = 'block';
+							cityWrap.onclick = function(e) {
+								if(selectedCity.innerText !== e.target.innerText) {
+									selectedCity.innerText = e.target.innerText;
+									selectedCity.id = e.target.id;
+									selectedSchool.innerText = '请选择';
+								}
+								cityWrap.style.display = 'none';
+								for(var j = 0; j < data.length; j++){
+									if(data[j].id == selectedCity.id){
+										var html = '';
+										for(var k = 0; k < data[j].school.length; k++){
+											html += '<li id=' + data[j].school[k].id + '>' + data[j].school[k].name + '</li>';
+		 									
+											schoolWrap.innerHTML = html;
+										}
+										break;
+									}
+								}
+							}
+						}else {
+							cityWrap.style.display = 'none';
+						}
+					}
+
+					if (e.target == inputSchool){
+						if (getComputedStyle(cityWrap).display == 'block'){
+							cityWrap.style.display = 'none';
+						}
+						if (getComputedStyle(schoolWrap).display == 'none'){
+							schoolWrap.style.display = 'block';
+							schoolWrap.onclick = function(e) {
+								selectedSchool.innerText = e.target.innerText;
+								schoolWrap.style.display = 'none';
+							}
+						}else {
+							schoolWrap.style.display = 'none';
+						}
+						
+					}
+					e.stopPropagation();
+				}
+			}
+
+			function init() {
+				toggleType();
+				showList();
+				document.body.onclick = function() {
+					console.log(schoolWrap);
+					schoolWrap.style.display = 'none';
+					cityWrap.style.display = 'none';
+				}
+			}
+
+			init();
+		})();
+	</script>
+</body>
+</html>
