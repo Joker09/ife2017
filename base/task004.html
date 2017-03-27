@@ -256,7 +256,7 @@
 				for(var j = 1; j < col.length; j++){
 					col[j]['data-x'] = j;
 					col[j]['data-y'] = i;
-					col[j].innerText = '('+ col[j]['data-x'] + ',' + col[j]['data-y'] + ')';
+					// col[j].innerText = '('+ col[j]['data-x'] + ',' + col[j]['data-y'] + ')';
 				}
 			}
 
@@ -305,8 +305,10 @@
 			}
 
 			function init() {
+				document.querySelector('.code').focus();
 				document.querySelector('.run').onclick = function() {
 					var box = document.querySelector('.box');
+
 					var code = document.querySelector('.code').value;
 					switch(code) {
 						case 'GO':
