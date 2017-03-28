@@ -4,10 +4,20 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style>
+		* {
+			box-sizing: border-box;
+		}
+		
+		.wrap {
+			display: inline-block;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
 		table {
-			/* border-collapse: collapse; */
-			margin: auto;
-			box-sizing: content-box;
+			border-collapse: collapse;
+			
 			user-select: none;
 		}
 		td {
@@ -36,9 +46,14 @@
 		}
 
 		.box {
+			width: 40px;
+			height: 40px;
 			background-color: red;
-			position: relative;
+			position: absolute;
 			z-index: 1;
+			top: 40px;
+			left: 40px;
+			transition: all .3s ease-out;
 		}
 
 		.box::before {
@@ -69,158 +84,165 @@
 	</style>
 </head>
 <body>
-	<table>
-		<tr>
-			<td></td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>6</td>
-			<td>7</td>
-			<td>8</td>
-			<td>9</td>
-			<td>10</td>
-		</tr>
-		<tr>
-			<td>1</td>
-			<td class="box"></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>2</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>3</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>4</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>5</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>6</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>7</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>8</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>9</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>10</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
-	<!-- <button class="turnleft">turn left</button>
-	<button class="turnright">turn right</button>
-	<button class="turnback">turn back</button>
-	<button class="move">move</button> -->
+	<div class="wrap">
+		<table>
+			<tr>
+				<td></td>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>9</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>10</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="box animated"></div>
+	</div>
 	<div class="act">
 		<input type="text" class="code">
 		<button class="run">Run</button>
+	</div>
+	<div class="tips">
+		<ul>
+			<li>GO：向黑色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+			<li>TUN LEF：向左转（逆时针旋转90度）</li>
+			<li>TUN RIG：向右转（顺时针旋转90度）</li>
+			<li>TUN BAC：向右转（旋转180度）</li>
+		</ul>
 	</div>	
 	<script>
 		(function() {
@@ -239,44 +261,65 @@
 				if(hasClass(ele, className)) {
 					ele.className = ele.className.replace(className, '').trim();
 				}
-			} 
+			}
 
+			var run = document.querySelector('.run'),
+			    box = document.querySelector('.box');
 			// 方向 
 			// 0 表示向上
 		    // 1 表示向右
             // 2 表示向下
             // 3 表示向左
             // 默认方向为向上
-			var currentDirection = 0;
+			var currentDirection = 0,
+				currentTranformRatio = 0;
 
 			// 生成坐标
-			var row = document.querySelectorAll('tr');
-			for(var i = 1; i < row.length; i++){
-				var col = row[i].querySelectorAll('td');
-				for(var j = 1; j < col.length; j++){
-					col[j]['data-x'] = j;
-					col[j]['data-y'] = i;
-					// col[j].innerText = '('+ col[j]['data-x'] + ',' + col[j]['data-y'] + ')';
-				}
-			}
+			// var row = document.querySelectorAll('tr');
+			// for(var i = 1; i < row.length; i++){
+			// 	var col = row[i].querySelectorAll('td');
+			// 	for(var j = 1; j < col.length; j++){
+			// 		col[j]['data-x'] = j;
+			// 		col[j]['data-y'] = i;
+			// 	}
+			// }
 
 			// 改变方向
+			// direction 向左 -1
+			//           向右 +1
+			//           调头 +2
 			function changeDirection(box, direction) {
-				if (direction === 'turnleft'){
-					currentDirection = currentDirection === 0 ? 3 : currentDirection - 1;
+				// 如果还在动画中，则退出
+				if(!hasClass(box, 'animated')){
+					return;
 				}
-				if (direction === 'turnright'){
-					currentDirection = currentDirection === 3 ? 0 : currentDirection + 1;
+
+				currentDirection = currentDirection + direction;
+				if(currentDirection > 3){
+					currentDirection = 0;
 				}
-				if (direction === 'turnback'){
-					currentDirection = (currentDirection + 2) > 3 ? (currentDirection + 2) % 2 : currentDirection + 2;
+				if(currentDirection < 0) {
+					currentDirection = 3;
 				}
-				box.style.transform = 'rotate('+(90*currentDirection) + 'deg)';
+				currentTranformRatio = currentTranformRatio+direction;
+
+
+				// 新的动画，移除'animated' 
+				removeClass(box, 'animated');
+				// 目标
+				box.style.transform = 'rotate('+(90*currentTranformRatio) + 'deg)';
+				// 动画结束， 添加'animated'
+				(function(){
+					setTimeout(function() {
+						addClass(box, 'animated');
+						run.disabled = false;
+					},300);
+				})();
 			}
 			
 			// 移动
-			function move(node) {
-				var posX = node['data-x'], posY = node['data-y'];
+			function move(box) {
+				var posX = parseInt((getComputedStyle(box).left))/40, posY = parseInt((getComputedStyle(box).top))/40;
 				var currentPos =  {x: posX, y: posY };
 				var targetPos = {};
 				if (currentDirection === 0){
@@ -294,56 +337,51 @@
 				
 				if(targetPos.x > 10 || targetPos.x < 1 || targetPos.y > 10 || targetPos.y < 1){
 					alert('超出范围');
+					run.disabled = false;
 					return;
 				}
 
-				removeClass(node, 'box');
-				var newNode = row[targetPos.y].querySelectorAll('td')[targetPos.x];
-				addClass(newNode,'box');
-				newNode.style.transform = getComputedStyle(node).transform;
-				node.style.transform = 'none';
+				// 如果还在动画中，则退出
+				if(!hasClass(box, 'animated')){
+					return;
+				}
+				// 新的动画，移除'animated' 
+				removeClass(box, 'animated');
+				// 目标
+				box.style.left = targetPos.x * 40 + 'px';
+				box.style.top = targetPos.y * 40 + 'px';
+				// 动画结束， 添加'animated'
+				(function(){
+					setTimeout(function() {
+						addClass(box, 'animated');
+						run.disabled = false;
+					},300);
+				})();
+				
 			}
 
 			function init() {
 				document.querySelector('.code').focus();
-				document.querySelector('.run').onclick = function() {
-					var box = document.querySelector('.box');
-
+				run.onclick = function() {
+					run.disabled = true;
 					var code = document.querySelector('.code').value;
 					switch(code) {
 						case 'GO':
 						move(box);
 						break;
 						case 'TUN LEF':
-						changeDirection(box, 'turnleft');
+						changeDirection(box, -1);
 						break;
 						case 'TUN RIG':
-						changeDirection(box, 'turnright');
+						changeDirection(box, 1);
 						break;
 						case 'TUN BAC':
-						changeDirection(box, 'turnback');
+						changeDirection(box, 2);
 						break;
 						default:
 						alert('指令错误');
 					}
 				}
-				
-				// document.querySelector('.turnleft').onclick = function() {
-				// 	var box = document.querySelector('.box');
-				// 	changeDirection(box, 'turnleft');
-				// }
-				// document.querySelector('.turnright').onclick = function() {
-				// 	var box = document.querySelector('.box');
-				// 	changeDirection(box, 'turnright');
-				// }
-				// document.querySelector('.turnback').onclick = function() {
-				// 	var box = document.querySelector('.box');
-				// 	changeDirection(box, 'turnback');
-				// }
-				// document.querySelector('.move').onclick = function() {
-				// 	var box = document.querySelector('.box');
-				// 	move(box);
-				// }
 			}
 
 			init();
