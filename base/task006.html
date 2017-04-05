@@ -13,7 +13,55 @@
 			margin-top: 0;
 		}
 
-		.btn {
+		#modal {
+			
+		}
+
+		#modal .layer {
+			/* display: none; */
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 9;
+			background-color: rgba(0, 0, 0, .2);
+		}
+
+		#modal .modal-box {
+			box-sizing: border-box;
+			width: 60%;
+			max-width: 500px;
+			border: 1px solid #000;
+			position: fixed;
+			z-index: 999;
+			/* display: none; */
+		}
+
+		#modal .modal-header{
+			background-color: #848484;
+			border-bottom: 1px solid #000;
+			padding: 10px;
+			cursor: default;
+		}	
+
+		#modal .modal-header h4 {
+			margin: 0;
+			user-select: none;
+		}
+
+		#modal .modal-body {
+			padding: 15px;
+			background-color: #fff;
+		}
+
+		#modal .modal-footer {
+			background-color: #fff;
+			padding: 15px;
+			text-align: right;
+		}
+
+		#modal .modal-footer button{
 			display: inline-block;
 		    padding: 6px 12px;
 		    margin-bottom: 0;
@@ -31,90 +79,13 @@
 		    background-image: none;
 		    border: 1px solid transparent;
 		    border-radius: 4px;
-		}
-
-		.btn-default {
-			padding-left: 30px;
+		    padding-left: 30px;
 			padding-right: 30px;
-		}
-		
-		.modal {
-			box-sizing: border-box;
-			width: 60%;
-			border: 1px solid #000;
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			margin: auto;
-			z-index: 999;
-			display: none;
-			transform: translateY(-50%);
-			transition: all .3s ease-out;
-		}
-
-			
-		.modal .modal-head{
-			background-color: #848484;
-			border-bottom: 1px solid #000;
-			padding: 10px;
-		}
-
-		.modal .modal-head h4 {
-			margin: 0;
-		}
-
-		.modal .modal-body {
-			padding: 15px;
-			background-color: #fff;
-		}
-
-		.modal .modal-foot {
-			background-color: #fff;
-			padding: 15px;
-			text-align: right;
-		}
-		.overlay {
-			display: none;
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			z-index: 9;
-			background-color: rgba(0, 0, 0, .2);
 		}
 	</style>
 </head>
 <body>
-	<p>段落</p>
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>
-	<button class="btn" id="j-trigger">点我试试</button>
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
-	<p>段落</p>	
+	
 	<p>段落</p>	
 	<p>段落</p>	
 	<p>段落</p>	
@@ -130,61 +101,138 @@
 	<p>段落</p>	
 	<p>段落</p>	
 	<p>段落</p>
-	<div class="modal">
-		<div class="modal-head">
-			<h4>这是一个浮出层</h4>
+	<button id="j-trigger" style="background-color: #23d;">点我试试</button>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>	
+	<p>段落</p>
+	<!-- <div id="modal">
+		<div class="layer"></div>
+		<div class="modal-box">
+			<div class="modal-header">
+				<h4>这是一个模态框</h4>
+			</div>
+			<div class="modal-body">
+				<p>模态框的内容</p>
+			</div>
+			<div class="modal-footer">
+				<button id="j-sure">确定</button>
+				<button id="j-cancel">取消</button>
+			</div>
 		</div>
-		<div class="modal-body">
-			<p>这是浮出层的内容</p>
-		</div>
-		<div class="modal-foot">
-			<button class="btn btn-default" id="j-sure">确定</button>
-			<button class="btn btn-default" id="j-cancel">取消</button>
-		</div>
-	</div>
-	<div class="overlay"></div>
+	</div> -->
 	<script>
-		(function(){
-			function Modal(modal, overlay, sure, cancel){
-				this.modal = document.querySelector(modal);
-				this.overlay = document.querySelector(overlay);
-				this.sure = document.querySelector(sure);
-				this.cancel = document.querySelector(cancel);
-				this.open();
+		// util
+		function extend(o, p) {
+			for (var porp in p){
+				o[porp] = p[porp]
+			}
+			return o;
+		}
+
+		(function() {
+			function Modal(options) {
+				this.settings = {
+					title: '默认标题',
+					content: '默认内容'
+				}
+
+				this.settings = extend(this.settings, options);
+				this.init();
+			}
+			Modal.prototype.init = function() {
+				this.modal = document.createElement('div'),
+				this.layer = document.createElement('div'),
+				this.modalBox = document.createElement('div'),
+				this.modalHeader = document.createElement('div'),
+				this.modalBody = document.createElement('div'),
+				this.modalFooter = document.createElement('div');
+
+				this.modal.id = 'modal';
+				this.layer.className = 'layer';
+				this.modalBox.className = 'modal-box';
+				this.modalHeader.className = 'modal-header';
+				this.modalBody.className = 'modal-body';
+				this.modalFooter.className = 'modal-footer';
+				document.body.style.overflow = 'hidden';
+				document.body.appendChild(this.modal);
+				this.modal.appendChild(this.layer);
+				this.modal.appendChild(this.modalBox);
+				this.modalBox.appendChild(this.modalHeader);
+				this.modalBox.appendChild(this.modalBody);
+				this.modalBox.appendChild(this.modalFooter);	
+
+				this.modalBox.style.left = (window.innerWidth - this.modalBox.offsetWidth) / 2 + 'px'; 
+				this.modalBox.style.top = (window.innerHeight * 0.3) + 'px';
+
+				this.modalHeader.innerHTML = '<h4>' + this.settings.title + '</h4>';
+				this.modalBody.innerHTML = '<p>' + this.settings.content + '</p>';
+				this.modalFooter.innerHTML = '<button >确定</button> <button>取消</button>';
 				this.event();
 			}
 
-			Modal.prototype.event = function() {
-				var _this = this;
-				this.sure.addEventListener('click', function() {
-					_this.close();
-				})
-				this.cancel.addEventListener('click', function(){
-					_this.close();
-				})
-				this.overlay.addEventListener('click', function(){
-					_this.close();
-				})
-			}
-
-			Modal.prototype.open = function() {
-				var clientH = document.documentElement.clientHeight;
-				var scrollTop = document.body.scrollTop;
-				this.modal.style.top = clientH/2 + scrollTop + 'px';
-				this.modal.style.display = 'block';
-				this.overlay.style.display = 'block';
-				document.body.style.overflow = 'hidden';
-			}
-
 			Modal.prototype.close = function() {
-				this.modal.style.display = 'none';
-				this.overlay.style.display = 'none';
+				document.body.removeChild(this.modal);
 				document.body.style.overflow = 'auto';
 			}
 
-			var trigger = document.querySelector('#j-trigger');
-			trigger.addEventListener('click', function(){
-				new Modal('.modal', '.overlay', '#j-sure', '#j-cancel');
+
+			Modal.prototype.event = function() {
+				var _this = this;
+				this.modalFooter.addEventListener('click', function(e){
+					if(e.target.tagName.toLowerCase() == 'button'){
+						_this.close();
+					}
+				});
+				this.layer.addEventListener('click', function(){
+					_this.close();
+				});
+				if(this.settings.dragable){
+					(function(){
+						_this.modalHeader.style.cursor = 'move';
+						_this.modalHeader.addEventListener('mousedown', function(e){
+							var disX = e.clientX - _this.modalBox.offsetLeft,
+							    disY = e.clientY - _this.modalBox.offsetTop;
+							document.onmousemove = function(e) {
+								var posX = e.clientX - disX,
+								    posY = e.clientY - disY;
+								if(posX < 0){
+									posX = 0;
+								}else if(posX > window.innerWidth - _this.modalBox.offsetWidth){
+									posX = window.innerWidth - _this.modalBox.offsetWidth;
+								}
+
+								if(posY < 0){
+									posY = 0;
+								}else if(posY > window.innerHeight - _this.modalBox.offsetHeight){
+									posY = window.innerHeight - _this.modalBox.offsetHeight;
+								}
+								_this.modalBox.style.left = posX + 'px';
+								_this.modalBox.style.top = posY + 'px';
+							}
+							_this.modalHeader.onmouseup = function() {
+								document.onmousemove = null;
+							}
+						})
+					})();
+				}
+			}
+
+			document.querySelector('#j-trigger').addEventListener('click', function(){
+				new Modal({
+					title: '这是一个模态框',
+					content: '这里是模态框的内容。。。。',
+					dragable: true
+				});
 			});
 		})();
 	</script>
