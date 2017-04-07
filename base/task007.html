@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#table {
+			border-collapse: collapse;
+			margin: auto;
+		}
+		#table th {
+			background-color: #5b5b5b;
+			color: #fff;
+			padding: 10px 30px;
+			border: 1px solid #ccc;
+		}
+
+		#table tr:nth-child(2n+1) {
+			background-color: #eee;
+		}
+
+		#table th.sortable {
+			position: relative;
+		}
+
+		#table th.sortable::after {
+			content: "^";
+			display: block;
+			position: absolute;
+			color: #fff;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 10px;
+			cursor: pointer;
+		}
+
+		#table td {
+			border: 1px solid #ccc;
+			text-align: center;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		(function() {
+			function hasClass(ele, className){
+				return [].includes.call(ele.classList, className);
+			}
+
+			function addClass(ele, className) {
+				if(!hasClass(ele, className)) {
+					ele.className = (ele.className + ' ' + className).trim();
+				}
+			}
+
+			function removeClass(ele, className) {
+				if(hasClass(ele, className)) {
+					ele.className = ele.className.replace(className, '').trim();
+				}
+			}
+
+			function Table(Thead, data){
+				this.thead = Thead;
+				this.data = data;
+				this.init();
+			}
+
+			Table.prototype.init = function(){
+				var thead = this.thead;
+				this.tableDOM = document.createElement('table');
+				this.tableDOM.id = 'table';
+				this.theadDOM = document.createElement('tr');
+				for(var col in thead){
+					var thDOM = document.createElement('th');
+					thDOM.innerHTML = thead[col].name;
+					if(thead[col].sortable){
+						addClass(thDOM,'sortable');
+						thDOM['data-col'] = col;
+					}
+					this.theadDOM.appendChild(thDOM);
+				}
+				this.tableDOM.appendChild(this.theadDOM);
+				document.body.appendChild(this.tableDOM);
+				this.event();
+				this.renderData();
+
+			}
+
+			Table.prototype.renderData = function() {
+				var length =  this.tableDOM.children.length;
+				for(var i = 1; i < length; i++){
+					this.tableDOM.children[1].remove();
+				}
+				var data = this.data;
+				for(var i in data) {
+					var tr = document.createElement('tr');
+					for(var item in data[i]){
+						tr.innerHTML += '<td>' + data[i][item] + '</td>';
+					}
+					table.appendChild(tr);
+				}
+			}
+
+			Table.prototype.event = function() {
+				var _this = this;
+				var sortBtn = this.tableDOM.querySelectorAll('th.sortable');
+				for(var i = 0; i < sortBtn.length; i++){
+					sortBtn[i].addEventListener('click', function(){
+						console.log();
+
+						_this.sort(this['data-col']);
+						
+						_this.renderData();
+					})
+					
+				}
+				
+				this.sort();
+			}
+
+			Table.prototype.sort = function(col) {
+				this.data.sort(function(a, b){
+					return b[col] - a[col];
+				})
+			}
+
+			new Table({
+				col1: {
+					name: '姓名',
+					sortable: false  
+				},
+				col2: {
+					name: '语文',
+					sortable: true
+				},
+				col3: {
+					name: '数学',
+					sortable: true
+				},
+				col4: {
+					name: '英语',
+					sortable: true
+				},
+				col5: {
+					name: '总分',
+					sortable: false
+				}
+			},[{
+				col1: '小明',
+				col2: 80,
+				col3: 90,
+				col4: 70,
+				col5: 240
+			},{
+				col1: '小华',
+				col2: 50,
+				col3: 60,
+				col4: 80,
+				col5: 190
+			},{
+				col1: '小红',
+				col2: 90,
+				col3: 60,
+				col4: 60,
+				col5: 210
+			}]);
+		})();
+	</script>
+</body>
+</html>
