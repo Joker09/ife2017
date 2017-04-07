@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+	<title>Document</title>
+	<style>
+		body, h1, figure {
+			margin: 0;
+			padding: 0;
+		}
+
+		*, ::before, ::after {
+			box-sizing: border-box;
+		}
+
+		body {
+			position: relative;
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.container {
+			position: relative;
+			width: 60%;
+			max-width: 800px;
+			display: flex;
+		}
+
+		.caption {
+			position: absolute;
+			padding: 30px;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+
+		.caption .title {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-shadow: 1px 1px 2px rgba(0,0,0,.26);
+			/* box-shadow: 0 0 30px 20px rgba(0,0,0,.46); */
+		}
+
+		.caption .title::before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			top: 50%;
+			height: 0;
+			border: 3px solid #fffffb;
+			border-width: 0 3px;
+			transition: all .5s;
+			visibility: hidden;
+		}
+
+		.caption .title::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			width: 0;
+			left: 50%;
+			height: 100%;
+			border: 3px solid #fffffb;
+			border-width: 3px 0;
+			transition: all .5s;
+			visibility: hidden;
+		}
+
+		.container:hover .caption .title::after {
+			width: 100%;
+			left: 0;
+			visibility: visible;
+		}
+
+		.container:hover .caption .title::before {
+			height: 100%;
+			top: 0;
+			visibility: visible;
+		}
+
+		.container .caption .title h1 {
+			margin-bottom: 10px;
+		}
+		
+		.container .caption .title a {
+			position: relative;
+			font-size: 15px;
+			color: #3498db;
+    		z-index: 1;
+		}
+
+		.container img {
+			width: 100%;
+			height: 100%;
+			transition: filter 1.5s,-webkit-filter 1.5s;
+		}
+
+		.streamer {
+			background-image: -webkit-linear-gradient(0deg,#3498db,#f47920 10%,#d71345 20%,#f7acbc 30%,#ffd400 40%,#3498db 50%,#f47920 60%,#d71345 70%,#f7acbc 80%,#ffd400 90%,#3498db);
+			background-size: 200%;
+			-webkit-background-clip: text;
+			color: transparent;
+			animation: streamer 5s infinite linear;
+		}
+
+		.breathe {
+			animation: breathe 5s infinite linear;
+		}
+
+		.slideIn {
+			opacity: 0;
+			transform: translate(0, 20px);
+			transition: all .5s;
+		}
+
+		.container:hover .slideIn {
+			opacity: 1;
+			transform: translate(0, 0);
+		}
+
+		.container:hover img {
+		    -webkit-filter: blur(2px);
+		    filter: blur(2px)
+		}
+		@keyframes streamer {
+			0% {
+				background-position: 0 0;
+			}
+
+			100% {
+				background-position: -100% 0;
+			}
+		}
+
+		@keyframes breathe {
+			0% {
+				color: #3498db;
+			}
+
+			25% {
+			    color: #d71345;
+			}
+			
+			50% {
+			    color: #f7acbc;
+			}
+			
+			75% {
+			    color: #d71345;
+			}
+			
+			0% {
+			    color: #3498db;
+			}
+	</style>
+</head>
+<body>
+	<figure class="container">
+		<figcaption class="caption">
+			<div class="title">
+				<h1 class="streamer slideIn">Hello World</h1>
+				<a class="breathe slideIn" href="http://ife.baidu.com" target="_blank">点击进入</a>
+			</div>
+		</figcaption>
+		<img src="https://html5box.com/html5lightbox/images/lakeandballoon.jpg" alt="image">
+	</figure>
+</body>
+</html>
