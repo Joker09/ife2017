@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Observer(data) {
+			this.data = data;
+			this.list = {};
+			this.walk(data);
+		}
+
+		let p = Observer.prototype;
+
+		p.walk = function(obj) {
+			for (let key in obj){
+
+				if (obj.hasOwnProperty(key)){
+					let val = obj[key];
+
+					if(typeof val === 'object'){
+						new Observer(val);
+					}
+
+					this.convert(key, val);
+				}
+			}
+		}
+
+		p.convert = function(key, val) {
+			var that = this;
+			Object.defineProperty(this.data, key, {
+				enumerable: true,
+				configurable: true,
+				get: function() {
+					console.log('你访问了' + key);
+					return val;
+				},
+				set: function(newVal) {
+					if(typeof newVal === 'object'){
+						new Observer(newVal);
+					}
+					console.log('你设置了' + key + ',新的值为' +  newVal);
+					that.$emit(key, newVal);
+					if(newVal === val) return;
+					val = newVal;
+				}
+			});
+		}
+
+		p.$watch = function(attr, callback) {
+			if(!this.list[attr]){
+				this.list[attr] = [];
+			}
+			this.list[attr].push(callback);
+		}
+
+		p.$emit = function(attr, data) {
+			var fns = this.list[attr];
+			if (!fns || fns.length === 0){
+				return;
+			}
+			fns.forEach(function(fn){
+				fn(data);
+			})
+		}
+
+		 let app1 = new Observer({
+				         name: 'youngwind',
+				         age: 25
+					 });
+
+			 app1.data.name = {
+			         lastName: 'liang',
+			         firstName: 'shaofeng'
+			 };
+		app1.$watch('age', function(age){
+			console.log(`我的年纪变了，现在已经是：${age}岁了`);
+		})
+	</script>
+</body>
+</html>
