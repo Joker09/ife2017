@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Observer(data) {
+			this.data = data;
+			this.list = {};
+			this.walk(data);
+		}
+
+		let p = Observer.prototype;
+
+		p.walk = function(obj) {
+			for (let key in obj){
+				if (obj.hasOwnProperty(key)){
+					let val = obj[key];
+					if(typeof val === 'object'){
+						let o = new Observer(val);
+
+						// 为新新生成的对象添加parent属性，值为当前对象（this）
+						o.parent = this;
+
+						//为新生成的对象添加key属性，值为此对象的属性名
+						o.key = key;
+
+						console.log(o);
+					}
+					this.convert(key, val);
+				}
+			}
+		}
+
+		p.convert = function(key, val) {
+			var that = this;
+			Object.defineProperty(this.data, key, {
+				enumerable: true,
+				configurable: true,
+				get: function() {
+					console.log('你访问了' + key);
+					return val;
+				},
+				set: function(newVal) {
+					if(typeof newVal === 'object'){
+						new Observer(newVal);
+					}
+					console.log('你设置了' + key + ',新的值为' +  newVal);
+					that.$emit(key, newVal);
+					val = newVal;
+				}
+			});
+		}
+
+		p.$watch = function(attr, callback) {
+			if(!this.list[attr]){
+				this.list[attr] = [];
+			}
+			this.list[attr].push(callback);
+		}
+
+		p.$emit = function(attr, data) {
+			var _this = this;
+			var fns = [],
+			    keys = [];
+
+			console.log(this);
+			// 遍历父级
+			while(_this.parent){
+				//如果某父级有key属性，则推入keys
+				if(_this.key){
+					keys.push(_this.key);
+				}
+				_this = _this.parent;
+			}
+
+			// 在list中查找key值并将handle函数推入fns
+			for(var key of keys) {
+				fns = fns.concat(_this.list[key]);
+			}
+
+			// 将当前级的handel函数(如果有的话)推入
+			fns = fns.concat(_this.list[attr] || []);
+			if (!fns || fns.length === 0){
+				return;
+			}
+			// 执行处理函数
+			fns.forEach(function(fn){
+				fn(data);
+			})
+		}
+
+		let app2 = new Observer({
+		    name: {
+		        firstName: 'shaofeng',
+		        lastName: 'liang'
+		    },
+		    age: 25
+		});
+		app2.$watch('name', function (newName) {
+		    console.log('我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。')
+		});
+		// app2.$watch('firstName', function (newName) {
+		//     console.log('dsakhdia');
+		// });
+	</script>
+</body>
+</html>
