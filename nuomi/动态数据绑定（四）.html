@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+	    <p>姓名：{{user.name}}</p>
+	    <p>年龄：{{user.age}}</p>
+	</div>
+	<script>
+		function Vue(obj) {
+			this.element = document.querySelector(obj.el);
+			this.data = obj.data;
+			this.render();
+		}
+		let p = Vue.prototype;
+
+		p.walk = function(data){
+			for (let key in data){
+				if (data.hasOwnproperty(key)){
+					let val = data[key]
+					if (typeof val === 'object'){
+						this.walk(val);
+					}
+				}
+			}
+		}
+
+		p.convert = function(key, val) {
+			Object.prototype.defineProperty(this.data, key, {
+				enumerable: true,
+				configurable: true,
+				get: function() {
+					return val;
+				},
+				set: function(newVal) {
+					newVal = val;
+				}
+			})
+		}
+
+		p.render = function() {
+			var html = this.element.innerHTML;
+			html = html.replace(/{{(.+)}}/g ,'${$1}');
+			
+			// 参考掘金https://juejin.im/entry/58ebcefd8d6d81006191cd05
+			this.element.innerHTML = eval('with(this.data)'+'`' + html + '`');
+		}
+	</script>
+	<script>
+		let	app = new Vue({
+			el: '#app',
+			data: {
+				user: {
+					name: 'kkk',
+					age: 24
+				}
+			}
+		});
+	</script>
+</body>
+</html>
