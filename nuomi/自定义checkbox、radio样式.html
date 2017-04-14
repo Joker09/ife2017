@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<style>
+		*, ::before, ::after {
+			box-sizing: border-box;
+		}
+		input[type="radio"],
+		input[type="checkbox"] {
+			-webkit-appearance: none;
+			width: 20px;
+			height: 20px;
+			border: 1px solid #ccc;
+			outline: none;
+			vertical-align: top;
+		}
+
+		input[type="radio"] {
+			border-radius: 50%;
+		}
+
+		input[type="radio"]:checked,
+		input[type="checkbox"]:checked {
+			background-color: #ff0000;
+			background-clip: content-box;
+			padding: 4px;
+			border-color: #ff0000;
+		}
+	</style>
+</head>
+<body>
+<fieldset>
+	<legend>选择性别</legend>
+	<input type="radio" id="men" name="gender">
+	<label for="men">男</label>
+	<input type="radio" id="women" name="gender">
+	<label for="women">女</label>
+</fieldset>
+<fieldset>
+	<legend>爱好</legend>
+	<input type="checkbox" id="basketball" name="hobby">
+	<label for="basketball">篮球</label>
+	<input type="checkbox" id="football" name="hobby">
+	<label for="football">足球</label>
+	<input type="checkbox" id="swim" name="hobby">
+	<label for="swim">游泳</label>
+</fieldset>	
+</body>
+</html>
