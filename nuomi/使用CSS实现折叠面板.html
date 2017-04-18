@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p {
+			margin: 0;
+		}
+		input[type="radio"] {
+			-webkit-appearance: none;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			position: relative;
+		}
+
+		label .title {
+			color: #333;
+		    background-color: #f5f5f5;
+		    border: 1px solid #ddd;
+		    padding: 10px 15px;
+		    border-top-left-radius: 3px;
+    		border-top-right-radius: 3px;
+    		cursor: pointer;
+		}
+
+		label .title:hover {
+			text-decoration: underline;
+		}
+
+		input[type="radio"] + p {
+			overflow: hidden;
+			height: 0;
+			border: 1px solid #ddd;
+			transition: all .2s;
+		}
+
+		input[type="radio"]:checked + p{
+			height: 40px;
+			transition: all .2s;
+		}
+	</style>
+</head>
+<body>
+	<label for="item1">
+		<div class="title">Collapsible Group Item #1</div>
+		<input type="radio" name="accordion" id="item1">
+		<p>11111111111111111111111</p>
+	</label>
+	
+	
+	<label for="item2">
+		<div class="title">Collapsible Group Item #2</div>
+		<input type="radio" name="accordion" id="item2">
+		<p>222222222222222222222222</p>
+	</label>
+	
+	
+	<label for="item3">
+		<div class="title">Collapsible Group Item #3</div>
+		<input type="radio" name="accordion" id="item3">
+		<p>33333333333333333333</p>
+	</label>
+</body>
+</html>
