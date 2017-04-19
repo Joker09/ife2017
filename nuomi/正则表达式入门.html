@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Document</title>
+</head>
+<body>
+	<fieldset>
+		<legend>检验电话号码</legend>
+		<form id="checkPhone">
+			<input type="text" name="phone" id="js-phone">
+			<input type="button" value="检验" id="js-phone-submit">
+		</form>		
+	</fieldset>
+	<fieldset>
+		<legend>检验相邻重复单词</legend>
+		<form id="checkWord">
+			<input type="text" name="word" id="js-word">
+			<input type="button" value="检验" id="js-word-submit">
+		</form>		
+	</fieldset>
+<script>
+	(function(argument) {
+		let pattern1  = /^1\d{10}$/;
+		let pattern2 = /\b(\w+)\b\s+\b\1\b/;
+		document.querySelector('#js-phone-submit').onclick = function() {
+			let value = document.querySelector('#js-phone').value;
+			alert(pattern1.test(value));
+		}
+		document.querySelector('#js-word-submit').onclick = function() {
+			let value = document.querySelector('#js-word').value;
+			alert(pattern2.test(value));
+		}
+	})();
+</script>
+</body>
+</html>
