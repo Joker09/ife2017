@@ -1,0 +1,724 @@
+
+header {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #0088ba;
+  display: flex;
+  align-items: flex-end;
+}
+header .brand {
+  flex: 1;
+}
+header .brand h1 {
+  margin: 0 0 0 50px;
+  line-height: 56px;
+  color: #fff;
+}
+
+header .top-search {
+  width: 310px;
+  margin-right: 20px;
+  line-height: 56px;
+}
+
+header .top-search form {
+  margin-bottom: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+header .top-search input {
+  width: 310px;
+  height: 27px;
+  border-radius: 27px;
+  padding-left: 20px
+}
+
+header .user {
+  display: flex;
+  margin-right: 100px;
+  height: 56px;
+  align-items: center;
+}
+
+header .user .login {
+  color: #fff;
+}
+
+.container {
+  position: relative;
+  top: 56px;
+  min-height: calc(100% - 56px);
+}
+
+.container .left {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 260px;
+  height: 100%;
+  background: #2b3040;
+  color: #fff;
+  overflow-x: hidden;
+  padding: 0 40px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.container .left .user-info {
+  cursor: pointer;
+}
+
+.container .left .user-info .avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  border-radius: 50%;
+  float: left;
+  outline: none;
+}
+.container .left .user-info .username {
+  height: 60px;
+  line-height: 60px;
+  margin-left: 80px;
+}
+
+.container .left .user-info .num {
+  display: inline-block;
+  color: #667e8e;
+  text-align: center;
+}
+
+.container .left .user-info .num:nth-of-type(1){
+  margin-right: 60px;
+}
+
+.container .left  .menu {
+  padding-left: 0;
+  color: #627483;
+  font-size: 14px;
+}
+
+.container .left  .menu ul {
+  padding-left: 20px;
+}
+
+.container .left  .menu li {
+  list-style: none;
+  line-height: 30px;
+  cursor: pointer;
+}
+.container .left  .menu>li {
+  line-height: 60px;
+}
+
+.container .right {
+  position: absolute;
+  left: 260px;
+  right: 0;
+  min-height: 100%;
+  background-color: #efedeb;
+}
+
+.container .right .breadcrumb {
+  background: #fff;
+}
+
+.container .right .breadcrumb ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.container .right .breadcrumb ul li {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 5px;
+  list-style: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.container .right .breadcrumb ul li.current {
+  color: #0089bc;
+}
+
+.container .right .breadcrumb ul li:not(:last-child)::after{
+  content: "/";
+  position: absolute;
+  right: -5px;
+}
+
+.container .right .search {
+  height: 84px;
+  width: 890px;
+  padding: 15px 30px;
+  box-sizing: border-box;
+  margin: 20px auto 0;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  color: #aaa;
+}
+
+.container .right .search .form-group{
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 36px;
+}
+
+.container .right .search .form-group .form-control:nth-of-type(1) {
+  margin-bottom: 5px;
+}
+
+.container .right .search .form-group label {
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+.container .right .search .select {
+  display: inline-block;
+  height: 25px;
+  min-width: 70px;
+  line-height: 25px;
+  position: relative;
+  vertical-align: middle;
+  font-size: 12px;
+  border: 1px solid #c6c3bf;
+  box-sizing: border-box;
+  color: #000;
+  user-select: none;
+}
+
+.container .right .search .select::after {
+  position: absolute;
+  content: "\e6c7";
+  font-family:"iconfont" !important;
+  font-size: 14px;
+  right: 0;
+  top: 0;
+}
+
+.container .right .search .select .placeholder {
+  margin-left: 5px;
+}
+
+.container .right .search .select .options {
+  display: none;
+}
+
+.container .right .search .select .options ul{
+  position: absolute;
+  background: #fff;
+  top: 24px;
+  z-index: 99;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #0089bc;
+} 
+
+.container .right .search .select .options ul li {
+  padding-left: 5px;
+  list-style: none;
+  cursor: pointer;
+  
+}
+
+.container .right .search .select .options ul li:hover {
+  color: #fff;
+  background-color: #0088ba;
+}
+
+.container .right .search .query-item {
+  width: 70px;
+}
+
+.container .right .search .seller,
+.container .right .search .buyer {
+  width: 118px;
+}
+
+.container .right .search .people {
+  width: 70px;
+}
+
+.container .right .search .volume {
+  width: 155px;
+}
+
+.container .right .search input[type="submit"] {
+  background-color: #0089bc;
+  margin-top: 15px;
+  padding: 0;
+  color: #fff;
+  border: 0;
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.container .right .trend {
+  display: flex;
+  height: 66px;
+  width: 890px;
+  margin: 10px auto 0;
+}
+
+.container .right .trend .slider {
+  position: relative;
+  height: 66px;
+  width: 756px;
+  box-sizing: border-box;
+  padding: 0 35px;
+  overflow: hidden;
+}
+
+.container .right .trend .slider .prev-btn,
+.container .right .trend .slider .next-btn {
+  position: absolute;
+  z-index: 9;
+  text-align: center;
+  line-height: 66px;
+  font-size: 30px;
+  font-weight: 800;
+  font-family: "宋体";
+  height: 100%;
+  width: 30px;
+  background: #fff;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+
+.container .right .trend .slider .prev-btn {
+  left: 0;
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+}
+
+.container .right .trend .slider .next-btn {
+  right: 0;
+  box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.5);
+}
+
+.container .right .trend .slider ul{
+  position: absolute;
+  left: 35px;
+  transition: .2s;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+.container .right .trend .slider ul li {
+  display: inline-block;
+  width: 110px;
+  height: 65px;
+  margin-right: 5px;
+  padding-top: 12px;
+  box-sizing: border-box;
+  border-top: 1px solid #aaa;
+  border-left: 1px solid #aaa;
+  list-style: none;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container .right .trend .slider ul li.active {
+  border-top: 2px solid #0088ba;
+}
+
+.container .right .trend .slider ul li time{
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.container .right .trend .slider ul li p .currency {
+  font-size: 16px;
+  color: #aaa;
+}
+
+.container .right .trend .slider ul li p .r-value {
+  font-size: 21px;
+  color: #ec6500;
+}
+
+.container .right .trend .history-search-btn {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 130px;
+  background: #fff;
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+.container .right .trend .history-search-btn i{
+  font-size: 30px;
+  margin-right: 5px;
+  color: #0088ba;
+}
+
+.container .right .sta {
+  width: 890px;
+  margin: 14px auto 0;
+  overflow: hidden;
+}
+
+.container .right .sta .title {
+  font-size: 12px;
+  color: #333;
+  margin: 6px 0;
+}
+
+.container .right .sta ul {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container .right .sta ul li {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  float: left;
+  width: 200px;
+  border-left: 4px solid;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #aaa;
+  list-style: none;
+}
+
+.container .right .sta ul li .block {
+  width: 60px;
+  height: 47px;
+}
+
+.container .right .sta ul li:nth-child(1) {
+  border-left-color: #00b399;
+}
+.container .right .sta ul li:nth-child(1) .block {
+  background-color: #0089bc;
+}
+.container .right .sta ul li:nth-child(2) {
+  border-left-color: #0089bc;
+}
+.container .right .sta ul li:nth-child(2) .block {
+  background-color: #00b399;
+}
+.container .right .sta ul li:nth-child(3) {
+  border-left-color: #e74128;
+}
+.container .right .sta ul li:nth-child(3) .block {
+  background-color: #e74128;
+}
+.container .right .sta ul li:nth-child(4) {
+  border-left-color: #eacc47;
+}
+.container .right .sta ul li:nth-child(4) .block {
+  background-color: #eacc47;
+}
+
+.container .right .sta ul li:not(:last-child) {
+  margin-right: 30px;
+}
+
+.container .right .boxs {
+  display: flex;
+  flex-wrap: wrap;
+  width: 890px;
+  margin: 20px auto 0;
+
+}
+
+.container .right .boxs>div[class^="box"] {
+  height: 356px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.container .right .boxs .box1,
+.container .right .boxs .box4 {
+  width: 530px;
+}
+
+.container .right .boxs .box1,
+.container .right .boxs .box3 {
+  margin-right: 10px;
+}
+
+.container .right .boxs .box2,
+.container .right .boxs .box3 {
+  width: 350px;
+}
+
+.container .right .boxs>div[class^="box"] .heading {
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #aaa;
+  background: #f4f5f5;
+}
+
+.container .right .boxs .box1 .content {
+  padding: 0 20px;
+  margin-top: 15px;
+}
+
+.container .right .boxs .box1 .content .tabs {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+.container .right .boxs .box1 .content .tabs li {
+  display: inline-block;
+  width: 84px;
+  height: 26px;
+  margin-right: 4px;
+  line-height: 26px;
+  text-align: center;
+  list-style: none;
+  font-size: 14px;
+  background-color: #eeedee;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  vertical-align: bottom;
+}
+
+.container .right .boxs .box1 .content .tabs li.active {
+  border: 1px solid #aaa;
+  background-color: #fff;
+  margin-bottom: -2px;
+  border-bottom: 1px solid #fff;
+}
+
+.container .right .boxs .box1 .content .content-inner {
+  width: 100%;
+  height: 252px;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+  border-radius: 0 5px 5px 5px;
+}
+
+.container .right .boxs .box1 .content .content-inner .tabs-content {
+  display: none;
+}
+
+.container .right .boxs .box1 .content .content-inner .tabs-content.current {
+  display: initial;
+}
+
+.container .right .boxs .box1 .content .content-inner .tabs-content table  {
+  margin: 28px auto 0;
+  border: 1px solid #aaa;
+  text-align: center;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.container .right .boxs .box1 .content .content-inner .tabs-content table td {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #aaa;
+}
+
+.container .right .boxs .box2 .content {
+  padding: 0 30px;
+}
+
+.container .right .boxs .box2 .content table {
+  margin-top: 18px;
+  border-collapse: collapse;
+}
+
+.container .right .boxs .box2 .content table tr td{
+  position: relative;
+}
+
+.container .right .boxs .box2 .content table tr td label{
+  position: absolute;
+  left: 18px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.container .right .boxs .box2 .content table tr td input,
+.container .right .boxs .box2 .content table tr td textarea {
+  width: 280px;
+  padding-left: 18px;
+  padding-top: 24px;
+  padding-bottom: 4px;
+  font-size: 12px;
+  outline: none;
+  border: none;
+}
+
+.container .right .boxs .box2 .content table tr {
+  border-bottom: 1px solid #eee;
+}
+
+.container .right .boxs .box2 .content table tr:nth-of-type(2) td:nth-of-type(1) input{
+  width: 94px;
+}
+
+.container .right .boxs .box2 .content table tr:nth-of-type(2) td:nth-of-type(2) {
+  border-left: 1px solid #eee;
+}
+
+.container .right .boxs .box2 .content table tr:nth-of-type(2) td:nth-of-type(2) input {
+  width: 186px;
+}
+
+.container .right .boxs .box2 .content table tr td textarea {
+  resize: none;
+  height: 144px;
+}
+
+.container .right .boxs .box2 .content div:nth-last-of-type(1) {
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.container .right .boxs .box2 .content form  input[name="terms"] {
+  vertical-align: middle;
+}
+
+.container .right .boxs .box2 .content form label[for="terms"] {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.container .right .boxs .box2 .content form input[type="submit"] {
+  float: right;
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 0;
+  color: #fff;
+  background-color: #0089bc;
+  padding: 0;
+}
+
+.container .right .boxs .box3 .content {
+  padding: 0 18px;
+  overflow: hidden; 
+}
+
+.container .right .boxs .box3 .content .calendar-action-bar {
+  margin-top: 10px;
+}
+
+.container .right .boxs .box3 .content .calendar-action-bar ul{
+  padding-left: 0;
+  margin-top: 0;
+}
+
+.container .right .boxs .box3 .content .calendar-action-bar ul li {
+  display: inline-block;
+  position: relative;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 6px;
+  color: #535353;
+  font-size: 12px;
+  border: 1px solid #d0cec9;
+  list-style: none;
+  cursor: pointer;
+}
+
+.container .right .boxs .box3 .content .calendar-action-bar ul li .prev-month,
+.container .right .boxs .box3 .content .calendar-action-bar ul li .next-month {
+  font-family: "宋体";
+  line-height: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.container .right .boxs .box3 .content .calendar-action-bar ul li .icon-dropdown {
+  cursor: pointer;
+  color: #aaa;
+}
+
+.container .right .boxs .box3 .content .calendar {
+  border-collapse: collapse;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.container .right .boxs .box3 .content .calendar thead tr {
+  border-top: 1px solid #0089bc;
+  border-bottom: 1px solid #aaa;
+}
+
+.container .right .boxs .box3 .content .calendar td {
+  width: 42px;
+  height: 42px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.container .right .boxs .box3 .content .calendar tbody td:hover {
+  border: 1px solid #e74128;
+}
+
+.container .right .boxs .box4 .content {
+  overflow: hidden;
+}
+
+.container .right .boxs .box4 .content table {
+  margin: 18px auto 0;
+  border-collapse: collapse;
+}
+
+.container .right .boxs .box4 .content table td {
+  height: 26px;
+  border: 1px solid #aaa;
+  text-align: center;
+  font-size: 12px;
+}
+
+.container .right .boxs .box4 .content table td .progress {
+  width: 168px;
+  height: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  box-sizing: border-box;
+  background: #e0ddd9;
+  border-left: 1px solid #0088ba;
+}
+
+.container .right .boxs .box4 .content table thead td:nth-child(1) {
+  width: 66px;
+}
+
+.container .right .boxs .box4 .content table thead td:nth-child(2) {
+  width: 90px;
+} 
+
+.container .right .boxs .box4 .content table thead td:nth-child(3) {
+  width: 290px;
+} 
