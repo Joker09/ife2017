@@ -14,3 +14,15 @@
 10. [任务十：Flexbox 布局练习](http://heifun.cn/ife2017/html_css/task010.html)
 11. [任务十一：移动Web页面布局实践](http://heifun.cn/ife2017/html_css/task011.html)
 12. [任务十二：学习CSS 3的新特性](http://heifun.cn/ife2017/html_css/task012.html)
+
+## 斌斌学院
+1. [任务一：零基础JavaScript编码（一）](http://heifun.cn/ife2017/javascript/task001.html)
+2. [任务二：零基础JavaScript编码（二）](http://heifun.cn/ife2017/javascript/task002.html)
+3. [任务三：零基础JavaScript编码（三）](http://heifun.cn/ife2017/javascript/task003.html)
+4. [任务四：基础JavaScript练习（一）](http://heifun.cn/ife2017/javascript/task004.html)
+5. [任务五：基础JavaScript练习（二）](http://heifun.cn/ife2017/javascript/task005.html)
+6. [任务六：基础JavaScript练习（三）](http://heifun.cn/ife2017/javascript/task006.html)
+7. [任务七：JavaScript和树（一）](http://heifun.cn/ife2017/javascript/task007.html)
+8. [任务八：JavaScript和树（二）](http://heifun.cn/ife2017/javascript/task008.html)
+9. [任务九：JavaScript和树（三）](http://heifun.cn/ife2017/javascript/task009.html)
+
