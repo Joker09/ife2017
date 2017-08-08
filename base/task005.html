@@ -239,131 +239,96 @@
 	</div>
 	<div class="tips">
 		<ul>
-			<li>GO：向黑色边所面向的方向前进一格（一格等同于正方形的边长）</li>
-			<li>TUN LEF：向左转（逆时针旋转90度）</li>
-			<li>TUN RIG：向右转（顺时针旋转90度）</li>
-			<li>TUN BAC：向右转（旋转180度）</li>
-			<li>TRA LEF：向屏幕的左侧移动一格，方向不变</li>
-			<li>TRA TOP：向屏幕的上面移动一格，方向不变</li>
-			<li>TRA RIG：向屏幕的右侧移动一格，方向不变</li>
-			<li>TRA BOT：向屏幕的下面移动一格，方向不变</li>
-			<li>MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
-			<li>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</li>
-			<li>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</li>
-			<li>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</li>
+			<li><button onclick="go(box);">GO</button>：向黑色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+			<li><button onclick="changeDirection(box, -1);">TUN LEF</button>：向左转（逆时针旋转90度）</li>
+			<li><button onclick="changeDirection(box, 1);">TUN RIG</button>：向右转（顺时针旋转90度）</li>
+			<li><button onclick="changeDirection(box, 2);">TUN BAC</button>：向右转（旋转180度）</li>
+			<li><button onclick="go(box, 3);">TRA LEF</button>：向屏幕的左侧移动一格，方向不变</li>
+			<li><button onclick="go(box, 0);">TRA TOP</button>：向屏幕的上面移动一格，方向不变</li>
+			<li><button onclick="go(box, 1);">TRA RIG</button>：向屏幕的右侧移动一格，方向不变</li>
+			<li><button onclick="go(box, 2);">TRA BOT</button>：向屏幕的下面移动一格，方向不变</li>
+			<li><button onclick="move(box, 3);">MOV LEF</button>：方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
+			<li><button onclick="move(box, 0);">MOV TOP</button>：方向转向屏幕上面，向屏幕的上面移动一格</li>
+			<li><button onclick="move(box, 1);">MOV RIG</button>：方向转向屏幕右侧，向屏幕的右侧移动一格</li>
+			<li><button onclick="move(box, 2);">MOV BOT</button>：方向转向屏幕下面，向屏幕的下面移动一格</li>
 		</ul>
 	</div>
 	<script>
 		(function() {
-			// util
-			function hasClass(ele, className){
-				return [].includes.call(ele.classList, className);
-			}
-
-			function addClass(ele, className) {
-				if(!hasClass(ele, className)) {
-					ele.className = ele.className + ' ' + className;
-				}
-			}
-
-			function removeClass(ele, className) {
-				if(hasClass(ele, className)) {
-					ele.className = ele.className.replace(className, '').trim();
-				}
-			}
-
-
-
 			var run = document.querySelector('.run'),
 			    box = document.querySelector('.box');
 					box.pos = {
-						x: 1,
-						y: 1
+						x: parseInt(window.getComputedStyle(box).left)/40,
+						y: parseInt(window.getComputedStyle(box).top)/40
 					}
 			// 方向 
 			// 0 表示向上
-		    // 1 表示向右
-            // 2 表示向下
-            // 3 表示向左
-            // 默认方向为向上
-			var currentDirection = 0,
-				currentTranformRatio = 0;
-
-			// 生成坐标
-			// var row = document.querySelectorAll('tr');
-			// for(var i = 1; i < row.length; i++){
-			// 	var col = row[i].querySelectorAll('td');
-			// 	for(var j = 1; j < col.length; j++){
-			// 		col[j]['data-x'] = j;
-			// 		col[j]['data-y'] = i;
-			// 	}
-			// }
+			// 1 表示向右
+			// 2 表示向下
+			// 3 表示向左
+			// 默认方向为向上
+			box.currentDirection = 0;
+			box.currentTranformRatio = 0;
 
 			// 改变方向
-			// direction 向左 -1
-			//           向右 +1
-			//           调头 +2
+			// direction 向左 -1 (turn left)
+			//           向右 +1 (turn right)
+			//           调头 +2 (turn back)
 			function changeDirection(box, direction) {
-				currentDirection = currentDirection + direction;
-				if(currentDirection > 3){
-					currentDirection = 0;
+				box.currentDirection = box.currentDirection + direction;
+				if(box.currentDirection > 3){
+					box.currentDirection = 0;
 				}
-				if(currentDirection < 0) {
-					currentDirection = 3;
+				if(box.currentDirection < 0) {
+					box.currentDirection = 3;
 				}
-				currentTranformRatio = currentTranformRatio+direction;
-				box.style.transform = 'rotate('+(90*currentTranformRatio) + 'deg)';
+				box.currentTranformRatio = box.currentTranformRatio+direction;
+				box.style.transform = 'rotate('+(90 * box.currentTranformRatio) + 'deg)';
 			}
 			
 			// 移动
 			function go(box, traDerection) {
-				// 初始未设置style属性时为left和top均为40
 				var posX = box.pos.x, posY = box.pos.y;
 			
-				if(traDerection){
+			// 注意 traDecrection == 0 的情况
+				if(traDerection || traDerection == 0){
 					if(traDerection == 0){
-						box.pos = {x: posX, y: posY - 1}
+						box.pos = {x: posX, y: posY - 1 < 1 ? 1 : posY - 1}
 					}
 					if(traDerection == 1){
-						box.pos = {x: posX + 1, y: posY}
+						box.pos = {x: posX + 1 > 10 ? 10 : posX + 1 , y: posY}
 					}
 					if(traDerection == 2){
-						box.pos = {x: posX, y: posY + 1}
+						box.pos = {x: posX, y: posY + 1 > 10 ? 10 : posY + 1}
 					}
 					if(traDerection == 3){
-						box.pos = {x: posX - 1, y: posY}
+						box.pos = {x: posX - 1 < 1 ? 1 : posX - 1 , y: posY}
 					}
 				}else{
-					if (currentDirection === 0){
-						box.pos = {x: posX, y: posY - 1}
+					if (box.currentDirection === 0){
+						box.pos = {x: posX, y: posY - 1 < 1 ? 1 : posY - 1}
 					}
-					if (currentDirection === 1){
-						box.pos = {x: posX + 1, y: posY}
+					if (box.currentDirection === 1){
+						box.pos = {x: posX + 1 > 10 ? 10 : posX + 1 , y: posY}
 					}
-					if (currentDirection === 2){
-						box.pos = {x: posX, y: posY + 1}
+					if (box.currentDirection === 2){
+						box.pos = {x: posX, y: posY + 1 > 10 ? 10 : posY + 1}
 					}
-					if (currentDirection === 3){
-						box.pos = {x: posX - 1, y: posY}
+					if (box.currentDirection === 3){
+						box.pos = {x: posX - 1 < 1 ? 1 : posX - 1 , y: posY}
 					}
 				}
-				
-				
-				if(box.pos.x > 10 || box.pos.x < 1 || box.pos.y > 10 || box.pos.y < 1){
-					alert('超出范围');
-					return false;
-				}
-
+				console.log(box.pos);
 				box.style.left = box.pos.x * 40 + 'px';
 				box.style.top = box.pos.y * 40 + 'px';
 			}
 
 			function move(box, direction){
-					currentDirection = direction;
-					box.style.transform = 'rotate(' + 90 * currentDirection + 'deg)';
+					box.currentDirection = direction;
+					box.style.transform = 'rotate(' + 90 * box.currentDirection + 'deg)';
 					setTimeout(function(){
 						go(box);
-					},1000);
+					},500);
 			}
 
 			function init() {
@@ -412,7 +377,10 @@
 					}
 				}
 			}
-
+			window.go = go;
+			window.move = move;
+			window.changeDirection = changeDirection;
+			window.box = box;
 			init();
 		})();
 	</script>	

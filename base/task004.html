@@ -230,7 +230,7 @@
 				<td></td>
 			</tr>
 		</table>
-		<div class="box animated"></div>
+		<div class="box"></div>
 	</div>
 	<div class="act">
 		<input type="text" class="code">
@@ -238,112 +238,68 @@
 	</div>
 	<div class="tips">
 		<ul>
-			<li>GO：向黑色边所面向的方向前进一格（一格等同于正方形的边长）</li>
-			<li>TUN LEF：向左转（逆时针旋转90度）</li>
-			<li>TUN RIG：向右转（顺时针旋转90度）</li>
-			<li>TUN BAC：向右转（旋转180度）</li>
+			<li><button onclick="go(box);">GO</button>：向黑色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+			<li><button onclick="changeDirection(box, -1);">TUN LEF</button>：向左转（逆时针旋转90度）</li>
+			<li><button onclick="changeDirection(box, 1);">TUN RIG</button>：向右转（顺时针旋转90度）</li>
+			<li><button onclick="changeDirection(box, 2);">TUN BAC</button>：调头（旋转180度）</li>
 		</ul>
 	</div>	
 	<script>
 		(function() {
-			// util
-			function hasClass(ele, className){
-				return [].includes.call(ele.classList, className);
-			}
-
-			function addClass(ele, className) {
-				if(!hasClass(ele, className)) {
-					ele.className = ele.className + ' ' + className;
-				}
-			}
-
-			function removeClass(ele, className) {
-				if(hasClass(ele, className)) {
-					ele.className = ele.className.replace(className, '').trim();
-				}
-			}
-
 			var run = document.querySelector('.run'),
 			    box = document.querySelector('.box');
+					
+			// 盒子初始位置
 					box.pos = {
-						x: 1,
-						y: 1
+						x: parseInt(window.getComputedStyle(box).left)/40,
+						y: parseInt(window.getComputedStyle(box).top)/40
 					};
+
 			// 方向 
 			// 0 表示向上
-		    // 1 表示向右
-				// 2 表示向下
-				// 3 表示向左
-				// 默认方向为向上
-			var currentDirection = 0,
-				currentTranformRatio = 0;
-
-			// 生成坐标
-			// var row = document.querySelectorAll('tr');
-			// for(var i = 1; i < row.length; i++){
-			// 	var col = row[i].querySelectorAll('td');
-			// 	for(var j = 1; j < col.length; j++){
-			// 		col[j]['data-x'] = j;
-			// 		col[j]['data-y'] = i;
-			// 	}
-			// }
+			// 1 表示向右
+			// 2 表示向下
+			// 3 表示向左
+			// 默认方向为向上
+					box.currentDirection = 0;
+					box.currentTranformRatio = 0;
 
 			// 改变方向
-			// direction 向左 -1
-			//           向右 +1
-			//           调头 +2
+			// direction 向左 -1 (turn left)
+			//           向右 +1 (turn right)
+			//           调头 +2 (turn back)
 			function changeDirection(box, direction) {
-				// 如果还在动画中，则退出
-				if(!hasClass(box, 'animated')){
-					return;
+				box.currentDirection = box.currentDirection + direction;
+				if(box.currentDirection > 3){
+					box.currentDirection = 0;
 				}
-
-				currentDirection = currentDirection + direction;
-				if(currentDirection > 3){
-					currentDirection = 0;
+				if(box.currentDirection < 0) {
+					box.currentDirection = 3;
 				}
-				if(currentDirection < 0) {
-					currentDirection = 3;
-				}
-				currentTranformRatio = currentTranformRatio+direction;
+				box.currentTranformRatio = box.currentTranformRatio+direction;
 
-
-				// 新的动画，移除'animated' 
-				removeClass(box, 'animated');
-				// 目标
-				box.style.transform = 'rotate('+(90*currentTranformRatio) + 'deg)';
-				// 动画结束， 添加'animated'
-				(function(){
-					setTimeout(function() {
-						addClass(box, 'animated');
-						run.disabled = false;
-					},300);
-				})();
+				box.style.transform = 'rotate('+(90*box.currentTranformRatio) + 'deg)';
 			}
 			
 			// 移动
-			function move(box) {
+			function go(box) {
 				var posX = box.pos.x, posY = box.pos.y;
-				// var currentPos =  {x: posX, y: posY };
-				// var targetPos = {};
-				if (currentDirection === 0){
-					box.pos = {x: posX, y: posY - 1}
-				}
-				if (currentDirection === 1){
-					box.pos = {x: posX + 1, y: posY}
-				}
-				if (currentDirection === 2){
-					box.pos = {x: posX, y: posY + 1}
-				}
-				if (currentDirection === 3){
-					box.pos = {x: posX - 1, y: posY}
-				}
 				
-				if(box.pos.x > 10 || box.pos.x < 1 || box.pos.y > 10 || box.pos.y < 1){
-					alert('超出范围');
-					run.disabled = false;
-					return;
+				if (box.currentDirection === 0){
+					box.pos = {x: posX, y: posY - 1 < 1 ? 1 : posY -1}
 				}
+				if (box.currentDirection === 1){
+					box.pos = {x: posX + 1 > 10 ? 10 :posX + 1 , y: posY}
+				}
+				if (box.currentDirection === 2){
+					box.pos = {x: posX, y: posY + 1 > 10 ? 10 : posY + 1}
+				}
+				if (box.currentDirection === 3){
+					box.pos = {x: posX - 1 < 1 ? 1 : posX - 1 , y: posY}
+				}
+
+				console.log(box.pos);
+
 				box.style.left = box.pos.x * 40 + 'px';
 				box.style.top = box.pos.y * 40 + 'px';
 			}
@@ -354,7 +310,7 @@
 					var code = document.querySelector('.code').value;
 					switch(code) {
 						case 'GO':
-						move(box);
+						go(box);
 						break;
 						case 'TUN LEF':
 						changeDirection(box, -1);
@@ -371,6 +327,10 @@
 				}
 			}
 
+			// 暴露变量给tips中的按钮使用
+			window.go = go;
+			window.changeDirection = changeDirection;
+			window.box = box;
 			init();
 		})();
 	</script>
