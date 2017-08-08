@@ -276,6 +276,10 @@
 
 			var run = document.querySelector('.run'),
 			    box = document.querySelector('.box');
+					box.pos = {
+						x: 1,
+						y: 1
+					}
 			// 方向 
 			// 0 表示向上
 		    // 1 表示向右
@@ -314,45 +318,44 @@
 			// 移动
 			function go(box, traDerection) {
 				// 初始未设置style属性时为left和top均为40
-				var posX = parseInt(box.style.left || 40)/40, posY = parseInt(box.style.top || 40)/40;
-				var currentPos =  {x: posX, y: posY };
-				var targetPos = {};
+				var posX = box.pos.x, posY = box.pos.y;
+			
 				if(traDerection){
 					if(traDerection == 0){
-						targetPos = {x: posX, y: posY - 1}
+						box.pos = {x: posX, y: posY - 1}
 					}
 					if(traDerection == 1){
-						targetPos = {x: posX + 1, y: posY}
+						box.pos = {x: posX + 1, y: posY}
 					}
 					if(traDerection == 2){
-						targetPos = {x: posX, y: posY + 1}
+						box.pos = {x: posX, y: posY + 1}
 					}
 					if(traDerection == 3){
-						targetPos = {x: posX - 1, y: posY}
+						box.pos = {x: posX - 1, y: posY}
 					}
 				}else{
 					if (currentDirection === 0){
-					targetPos = {x: posX, y: posY - 1}
+						box.pos = {x: posX, y: posY - 1}
 					}
 					if (currentDirection === 1){
-						targetPos = {x: posX + 1, y: posY}
+						box.pos = {x: posX + 1, y: posY}
 					}
 					if (currentDirection === 2){
-						targetPos = {x: posX, y: posY + 1}
+						box.pos = {x: posX, y: posY + 1}
 					}
 					if (currentDirection === 3){
-						targetPos = {x: posX - 1, y: posY}
+						box.pos = {x: posX - 1, y: posY}
 					}
 				}
 				
 				
-				if(targetPos.x > 10 || targetPos.x < 1 || targetPos.y > 10 || targetPos.y < 1){
+				if(box.pos.x > 10 || box.pos.x < 1 || box.pos.y > 10 || box.pos.y < 1){
 					alert('超出范围');
 					return false;
 				}
 
-				box.style.left = targetPos.x * 40 + 'px';
-				box.style.top = targetPos.y * 40 + 'px';
+				box.style.left = box.pos.x * 40 + 'px';
+				box.style.top = box.pos.y * 40 + 'px';
 			}
 
 			function move(box, direction){
