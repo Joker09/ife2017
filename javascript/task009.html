@@ -75,7 +75,12 @@
 		<input type="text" class="content" placeholder="请输入添加的内容">
 		<button class="add">添加</button>
 	</div>
-	
+	<ul>
+		<li>点击【遍历】可查看遍历过程</li>
+		<li>选中某个元素后点【删除】可删除选中的元素</li>
+		<li>在上方输入框输入内容后点【查找】可查找输入的内容</li>
+		<li>选中某个元素后，并在下方输入框中输入内容，点击【添加】，可为选中的元素添加子元素</li>
+	</ul>
 	<script>
 		(function (){
 			var rootNode = document.querySelector('.root'),
@@ -124,6 +129,10 @@
 
 			function add(node) {
 				var value = content.value;
+				if(!value){
+					alert("不能为空")
+					return;
+				}
 				var newNode = document.createElement('div');
 				newNode.className = 'c';
 				newNode.innerText = value;
@@ -131,10 +140,17 @@
 			}
 
 			delBtn.addEventListener('click', function() {
+				if(!currentNode){
+					alert("请先选择要删除的元素")
+				}
 				del(currentNode);
 			})
 
 			addBtn.addEventListener('click', function(){
+				if(!currentNode){
+					alert("请先选择父元素");
+					return false;
+				}
 				add(currentNode);
 			});
 			select();
