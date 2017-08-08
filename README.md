@@ -26,3 +26,13 @@
 8. [任务八：JavaScript和树（二）](http://heifun.cn/ife2017/javascript/task008.html)
 9. [任务九：JavaScript和树（三）](http://heifun.cn/ife2017/javascript/task009.html)
 
+## 耀耀学院
+1. [任务一：表单（一）单个表单项的检验](http://heifun.cn/ife2017/base/task001.html)
+2. [任务二：表单（二）多个表单项的动态校验](http://heifun.cn/ife2017/base/task002.html)
+3. [任务三：表单（三）联动](http://heifun.cn/ife2017/base/task003.html)
+4. [任务四：听指令的小方块（一）](http://heifun.cn/ife2017/base/task004.html)
+5. [任务五：听指令的小方块（二）](http://heifun.cn/ife2017/base/task005.html)
+6. [任务六：UI组件之浮出层](http://heifun.cn/ife2017/base/task006.html)
+7. [任务七：UI组件之排序表格](http://heifun.cn/ife2017/base/task007.html)
+8. [补充任务：开源JavaScript库使用统计任务](http://heifun.cn/ife2017/base/task008.html)
+
