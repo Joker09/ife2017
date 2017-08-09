@@ -276,12 +276,14 @@
 			//           调头 +2 (turn back)
 			function changeDirection(box, direction) {
 				box.currentDirection = box.currentDirection + direction;
+				
 				if(box.currentDirection > 3){
 					box.currentDirection = 0;
 				}
 				if(box.currentDirection < 0) {
 					box.currentDirection = 3;
 				}
+				console.log(box.currentDirection);
 				box.currentTranformRatio = box.currentTranformRatio+direction;
 				box.style.transform = 'rotate('+(90 * box.currentTranformRatio) + 'deg)';
 			}
@@ -324,11 +326,10 @@
 			}
 
 			function move(box, direction){
-					box.currentDirection = direction;
-					box.style.transform = 'rotate(' + 90 * box.currentDirection + 'deg)';
-					setTimeout(function(){
-						go(box);
-					},500);
+					if(box.currentDirection != direction){
+						changeDirection(box,direction-box.currentDirection);
+					}
+					go(box);
 			}
 
 			function init() {
